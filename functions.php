@@ -14,18 +14,11 @@ if ( ! defined( '_S_VERSION' ) ) {
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
  */
 function yourfone_setup() {
 	/*
-		* Make theme available for translation.
-		* Translations can be filed in the /languages/ directory.
-		* If you're building a theme based on YourFone, use a find and replace
-		* to change 'yourfone' to the name of your theme in all the template files.
-		*/
+	* Make theme available for translation.
+	*/
 	load_theme_textdomain( 'yourfone', get_template_directory() . '/languages' );
 
 	// Add default posts and comments RSS feed links to head.
@@ -54,9 +47,9 @@ function yourfone_setup() {
 	);
 
 	/*
-		* Switch default core markup for search form, comment form, and comments
-		* to output valid HTML5.
-		*/
+	* Switch default core markup for search form, comment form, and comments
+	* to output valid HTML5.
+	*/
 	add_theme_support(
 		'html5',
 		array(
@@ -118,6 +111,11 @@ function yourfone_content_width() {
 add_action( 'after_setup_theme', 'yourfone_content_width', 0 );
 
 /**
+ * Custom template tags for this theme.
+ */
+require get_template_directory() . '/inc/template-tags.php';
+
+/**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
@@ -127,6 +125,116 @@ function yourfone_widgets_init() {
 		array(
 			'name'          => esc_html__( 'Sidebar', 'yourfone' ),
 			'id'            => 'sidebar-1',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Top Column 1', 'yourfone' ),
+			'id'            => 'footer-top-1',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Top Column 2', 'yourfone' ),
+			'id'            => 'footer-top-2',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Top Column 3', 'yourfone' ),
+			'id'            => 'footer-top-3',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Top Column 4', 'yourfone' ),
+			'id'            => 'footer-top-4',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Bottom Column 1', 'yourfone' ),
+			'id'            => 'footer-bottom-1',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Bottom Column 2', 'yourfone' ),
+			'id'            => 'footer-bottom-2',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Bottom Column 3', 'yourfone' ),
+			'id'            => 'footer-bottom-3',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Bottom Column 4', 'yourfone' ),
+			'id'            => 'footer-bottom-4',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Copyright Left', 'yourfone' ),
+			'id'            => 'footer-copyright-1',
+			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Copyright Right', 'yourfone' ),
+			'id'            => 'footer-copyright-2',
 			'description'   => esc_html__( 'Add widgets here.', 'yourfone' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
@@ -155,33 +263,16 @@ function yourfone_scripts() {
 add_action( 'wp_enqueue_scripts', 'yourfone_scripts' );
 
 /**
- * Implement the Custom Header feature.
+ * Enqueue scripts and styles in admin dashboard.
  */
-require get_template_directory() . '/inc/custom-header.php';
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
-require get_template_directory() . '/inc/template-functions.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
+function yourfone_admin_scripts() {
+	wp_enqueue_style( 'yourfone-admin-style', get_template_directory_uri().'/css/admin/style.css', array(), _S_VERSION );
+	wp_enqueue_script( 'yourfone-admin-script', get_template_directory_uri().'/js/admin/script.js', array('jquery'), _S_VERSION, true );
 }
+add_action( 'admin_enqueue_scripts', 'yourfone_admin_scripts' );
 
-function add_arrow_to_menu_items( $items, $args ) {
+/* Add arrow to menu */
+function yourfone_add_arrow_to_menu_items( $items, $args ) {
     foreach ( $items as $item ) {
         if ( in_array( 'menu-item-has-children', $item->classes ) ) {
             $item->title .= ' <span class="submenu-arrow"><img class="down" src="' . get_template_directory_uri() . '/assets/images/rectangle-down.png"><img class="up" src="' . get_template_directory_uri() . '/assets/images/rectangle-up.png"></span>';
@@ -189,61 +280,9 @@ function add_arrow_to_menu_items( $items, $args ) {
     }
     return $items;
 }
-add_filter( 'wp_nav_menu_objects', 'add_arrow_to_menu_items', 10, 2 );
+add_filter( 'wp_nav_menu_objects', 'yourfone_add_arrow_to_menu_items', 10, 2 );
 
 /*
 * WooCommerce customizations
 */
-
-/*Init hooks*/
-function yourfone_init(){
-	remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
-	remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
-	add_action('woocommerce_before_main_content', 'yourfone_output_content_wrapper', 10);
-	add_action('woocommerce_after_main_content', 'yourfone_output_content_wrapper_end', 10);
-	remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
-	add_action('woocommerce_shop_loop_item_title', 'yourfone_add_color_attribute_before_title', 5);
-	add_action('woocommerce_shop_loop_item_title', 'yourfone_add_condition_attribute_after_title', 15);
-	remove_action('woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10);
-	remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5);
-}
-add_action('init', 'yourfone_init');
-
-/* Archive wrapper start */
-function yourfone_output_content_wrapper(){
-	echo '<div id="main"><div class="container">';
-}
-
-/* Archive wrapper end */
-function yourfone_output_content_wrapper_end(){
-	echo '<div><div>';
-}
-
-/* Customize the product title in the product loop */
-function woocommerce_template_loop_product_title() {
-	$html = '<div class="loop-title-wrapper">';
-	$html .= '<a href="' . esc_url( get_the_permalink() ) . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">';
-	$html .= '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>';
-	$html .= '</a>';
-	$html .= '<span class="attr-capacity">512 GB</span>';
-	$html .= '</div>';
-	echo $html;
-}
-
-/* Add color before title in product loop */
-function yourfone_add_color_attribute_before_title(){
-	echo '<div class="loop-color-wrapper"><span class="attr-color"></span><span class="attr-color-text">Space Black</span></div>';
-}
-
-/* Add condition and add to cart button after title in product loop */
-function yourfone_add_condition_attribute_after_title(){
-	$html = '<div class="loop-condition-wrapper">';
-	$html .= '<div class="attr-condition">';
-	$html .= '<span class="condition-title">Condition: </span><span class="condition-text">Good</span>';
-	$html .= '</div>';
-	$html .= '<div class="custom-add-to-cart-btn">';
-	$html .= '<a href="'.esc_url( get_the_permalink() ).'"><img src="'.get_template_directory_uri().'/assets/images/eye.png"></a>';
-	$html .= '</div>';
-	$html .= '</div>';
-	echo $html;
-}
+require_once 'woocommerce-features.php';

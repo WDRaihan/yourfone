@@ -149,6 +149,27 @@ nav#site-navigation {
 	padding: 5px 10px;
 }
 
+.yourfone-button, 
+.wp-block-button__link {
+    background: #F25A29;
+    border-radius: 35px;
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    max-height: 46px;
+    border: 1px solid #F25A29;
+    color: #ffffff;
+    transition: 0.5s;
+    line-height: 22px;
+}
+
+.yourfone-button:hover, 
+.wp-block-button__link:hover {
+    background: #fff;
+	color: #F25A29;
+}
+
 /* WooCommerce loop product style */
 .woocommerce ul.products li.product,
 .woocommerce-page ul.products li.product {
@@ -266,13 +287,88 @@ span.condition-text {
 .custom-add-to-cart-btn {
 	height: 12px;
 }
+
 .woocommerce ul.products li.product .price {
+	margin: 0;
+	font-family: "Poppins", serif;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 30px;
+	color: #F25A29 !important;
+	margin-top: 9px !important;
+	display: block;
+}
+
+/* Site footer styles */
+footer#site-footer .footer-widgets {
+	background-color: #F0F0F0;
+	padding: 58px 0;
+}
+
+footer#site-footer h2 {
+	font-family: "Poppins", serif;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 32px;
+}
+
+.site-footer ul.menu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.site-footer ul.menu li.menu-item {
+	font-family: "Open Sans", serif;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 32px;
+}
+
+.site-footer ul.menu li.menu-item a {
+	color: #000000;
+	text-decoration: none;
+}
+.site-footer .footer-bottom {
+    margin-top: 28px;
+}
+.footer-copyright {
+    background: #D9D9D9;
+    height: 65px;
+    padding-top: 22px;
+}
+.footer-copyright .copyright-text {
+    font-family: "Open Sans", serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20.43px;
+    color: #333333;
+}
+.footer-copyright ul {
+    list-style: none;
     margin: 0;
-    font-family: Poppins;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 30px;
-    color: #F25A29 !important;
-    margin-top: 9px !important;
-    display: block;
+    padding: 0;
+	text-align: right;
+}
+
+.footer-copyright ul li {
+    display: inline-block;
+    padding: 0 11px 0 6px;
+    border-right: 1px solid #333333;
+    line-height: 0px;
+}
+
+.footer-copyright ul li a {
+    font-family: Open Sans;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 15.43px;
+    text-align: right;
+    color: #333333;
+    text-decoration: none;
+}
+
+.footer-copyright ul li:last-child {
+    padding-right: 0;
+    border-right: 0
 }

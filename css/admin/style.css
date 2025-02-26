@@ -1,0 +1,59 @@
+.meta-field-group {
+	margin: 15px 0
+}
+
+.field-groups .meta-field-group {
+	margin: 0;
+	margin-bottom: 10px
+}
+
+.meta-field-group .field-label {
+	display: block;
+	font-weight: 500;
+	margin-bottom: 5px
+}
+
+.meta-field-group .regular-text {
+	display: block;
+	width: 100%
+}
+
+.meta-field-group #feature-image {
+	width: calc(100% - 66px);
+}
+
+.field-groups {
+	padding: 15px;
+	background: #f8f8f8;
+	border-radius: 5px;
+}
+
+.field-groups .group-item {
+	margin-bottom: 10px;
+	background: #fff;
+	padding: 10px;
+	border-radius: 5px;
+	position: relative;
+}
+
+.field-groups .group-item .item-title {
+	margin-bottom: 8px;
+}
+
+a.button.details-add-more {
+	margin-top: 10px;
+	background: #00b700;
+	color: #fff;
+	border-color: #00b700;
+}
+
+.field-groups .group-item:last-child {
+	margin-bottom: 0;
+}
+.group-item a.remove-ietm {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    color: red;
+    font-size: 13px;
+}

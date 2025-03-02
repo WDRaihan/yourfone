@@ -16,8 +16,9 @@ body {
 }
 
 #masthead {
-	height: 112px;
-	background-color: #fff
+    height: 112px;
+    background-color: #fff;
+    box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 5%);
 }
 
 .site-branding {
@@ -236,6 +237,7 @@ span.attr-color-text {
 	font-size: 12px;
 	line-height: 16.34px;
 	color: #333333;
+	text-transform: capitalize;
 }
 
 .loop-color-wrapper {
@@ -270,6 +272,7 @@ span.condition-text {
 	font-size: 14px;
 	line-height: 19.07px;
 	color: #000000;
+	text-transform: capitalize;
 }
 
 .loop-condition-wrapper {
@@ -371,4 +374,17 @@ footer#site-footer h2 {
 .footer-copyright ul li:last-child {
     padding-right: 0;
     border-right: 0
+}
+.single-product #page {
+    background: #fff;
+}
+.woocommerce div.product div.images.woocommerce-product-gallery {
+    background-attachment: scroll;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.woocommerce div.product div.images .woocommerce-product-gallery__wrapper {
+    max-width: 267px;
+    margin: 50px 120px 50px auto;
 }

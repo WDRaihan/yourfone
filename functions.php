@@ -286,3 +286,53 @@ add_filter( 'wp_nav_menu_objects', 'yourfone_add_arrow_to_menu_items', 10, 2 );
 * WooCommerce customizations
 */
 require_once 'woocommerce-features.php';
+
+add_shortcode( 'single_variations', 'yourfone_single_variations_shortcode' );
+function yourfone_single_variations_shortcode() {  
+	
+   $query = new WP_Query( array(
+      'post_type' => 'product_variation',
+      'post_status' => 'publish',
+      'posts_per_page' => 24,
+      'paged' => absint( empty( $_GET['product-page'] ) ? 1 : $_GET['product-page'] ),
+	  'meta_query'    => array(
+			array(
+				'key'       => 'attribute_pa_condition',
+				'value'     => 'good',
+				'compare'   => '=',
+			),
+		),
+   ));
+   if ( $query->have_posts() ) {
+      ob_start();
+	   
+      wc_setup_loop(
+         array(
+            'name' => 'single_variations',
+            'is_shortcode' => true,
+            'is_search' => false,
+            'is_paginated' => true,
+            'total' => $query->found_posts,
+            'total_pages' => $query->max_num_pages,
+            'per_page' => $query->get( 'posts_per_page' ),
+            'current_page' => max( 1, $query->get( 'paged', 1 ) ),
+         )
+      );
+	   echo '<div class="woocommerce">';
+	   woocommerce_output_content_wrapper();
+      woocommerce_pagination();
+      woocommerce_product_loop_start();
+      while ( $query->have_posts() ) {
+         $query->the_post();
+         	wc_get_template_part( 'content', 'product' );
+      }
+      woocommerce_product_loop_end();
+      woocommerce_pagination();
+      wp_reset_postdata();
+      wc_reset_loop();
+	   woocommerce_output_content_wrapper();
+	   echo '</div>';
+      return ob_get_clean();
+   }
+   return;
+}

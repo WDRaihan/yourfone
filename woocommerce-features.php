@@ -12,13 +12,17 @@ function yourfone_init(){
 	remove_action('woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10);
 	remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5);
 	remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
+	remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
+	remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+	remove_action('woocommerce_single_variation', 'woocommerce_single_variation', 10);
+	add_action('woocommerce_before_variations_form', 'yourfone_template_single_title_and_price', 5);
 }
 add_action('init', 'yourfone_init');
 
 /* Archive wrapper start */
 function yourfone_output_content_wrapper(){
 	if( is_product() ){
-		echo '<div id="main"><div class="container-fluid">';
+		echo '<div id="main"><div class="container">';
 	}else{
 		echo '<div id="main"><div class="container">';
 	}
@@ -26,7 +30,7 @@ function yourfone_output_content_wrapper(){
 
 /* Archive wrapper end */
 function yourfone_output_content_wrapper_end(){
-	echo '<div><div>';
+	echo '</div></div>';
 }
 
 /* Customize the product title in the product loop */
@@ -282,3 +286,11 @@ function yourfone_save_features_callback( $post_id ) {
 	update_post_meta($post_id, 'product_details', $details);
 }
 add_action( 'save_post', 'yourfone_save_features_callback' );
+
+//Wrap title and price
+function yourfone_template_single_title_and_price(){
+	echo '<div class="single-title-price">';
+	woocommerce_template_single_title();
+	woocommerce_single_variation();
+	echo '</div>';
+}

@@ -11,14 +11,16 @@ License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: yourfone
 */
-body {
-	background-color: #F5F5F5
+
+:root {
+	--poppins: "Poppins", serif;
+	--opensans: "Open Sans", serif;
 }
 
 #masthead {
-    height: 112px;
-    background-color: #fff;
-    box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 5%);
+	height: 112px;
+	background-color: #fff;
+	box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 5%);
 }
 
 .site-branding {
@@ -150,24 +152,24 @@ nav#site-navigation {
 	padding: 5px 10px;
 }
 
-.yourfone-button, 
+.yourfone-button,
 .wp-block-button__link {
-    background: #F25A29;
-    border-radius: 35px;
-    font-family: "Poppins", serif;
-    font-weight: 600;
-    font-size: 16px;
-    text-transform: uppercase;
-    max-height: 46px;
-    border: 1px solid #F25A29;
-    color: #ffffff;
-    transition: 0.5s;
-    line-height: 22px;
+	background: #F25A29;
+	border-radius: 35px;
+	font-family: "Poppins", serif;
+	font-weight: 600;
+	font-size: 16px;
+	text-transform: uppercase;
+	max-height: 46px;
+	border: 1px solid #F25A29;
+	color: #ffffff;
+	transition: 0.5s;
+	line-height: 22px;
 }
 
-.yourfone-button:hover, 
+.yourfone-button:hover,
 .wp-block-button__link:hover {
-    background: #fff;
+	background: #fff;
 	color: #F25A29;
 }
 
@@ -332,59 +334,101 @@ footer#site-footer h2 {
 	color: #000000;
 	text-decoration: none;
 }
+
 .site-footer .footer-bottom {
-    margin-top: 28px;
+	margin-top: 28px;
 }
+
 .footer-copyright {
-    background: #D9D9D9;
-    height: 65px;
-    padding-top: 22px;
+	background: #D9D9D9;
+	height: 65px;
+	padding-top: 22px;
 }
+
 .footer-copyright .copyright-text {
-    font-family: "Open Sans", serif;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 20.43px;
-    color: #333333;
+	font-family: "Open Sans", serif;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 20.43px;
+	color: #333333;
 }
+
 .footer-copyright ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 	text-align: right;
 }
 
 .footer-copyright ul li {
-    display: inline-block;
-    padding: 0 11px 0 6px;
-    border-right: 1px solid #333333;
-    line-height: 0px;
+	display: inline-block;
+	padding: 0 11px 0 6px;
+	border-right: 1px solid #333333;
+	line-height: 0px;
 }
 
 .footer-copyright ul li a {
-    font-family: Open Sans;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 15.43px;
-    text-align: right;
-    color: #333333;
-    text-decoration: none;
+	font-family: var(--opensans);
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 15.43px;
+	text-align: right;
+	color: #333333;
+	text-decoration: none;
 }
 
 .footer-copyright ul li:last-child {
-    padding-right: 0;
-    border-right: 0
+	padding-right: 0;
+	border-right: 0
 }
+
 .single-product #page {
-    background: #fff;
+	background: #fff;
 }
-.woocommerce div.product div.images.woocommerce-product-gallery {
-    background-attachment: scroll;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+
 .woocommerce div.product div.images .woocommerce-product-gallery__wrapper {
-    max-width: 267px;
-    margin: 50px 120px 50px auto;
+	max-width: 267px;
+	margin: 50px 120px 50px auto;
+}
+
+.woocommerce div.product div.summary {
+	margin-top: 50px;
+}
+
+.woocommerce div.product .product_title {
+	margin-top: 0;
+	padding: 0;
+	font-family: "Poppins", serif;
+	font-weight: 600;
+	font-size: 28px;
+	line-height: 30px;
+}
+
+.woocommerce .single-title-price {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.single-title-price span.price {
+	font-family: "Poppins", serif;
+	font-weight: 600;
+	font-size: 28px;
+	line-height: 30px;
+	color: rgba(242, 90, 41, 1) !important;
+}
+
+.woocommerce .gallery-bg {
+    width: 60vw;
+    position: absolute;
+    right: 0;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 241, 241, 1);
+}
+.woocommerce-page div.product div.summary {
+    width: 38%;
+}
+.woocommerce div.product div.images, .woocommerce-page div.product div.images {
+    width: 58%;
 }

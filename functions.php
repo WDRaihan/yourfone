@@ -295,13 +295,13 @@ function yourfone_single_variations_shortcode() {
       'post_status' => 'publish',
       'posts_per_page' => 24,
       'paged' => absint( empty( $_GET['product-page'] ) ? 1 : $_GET['product-page'] ),
-	  'meta_query'    => array(
+	  /*'meta_query'    => array(
 			array(
 				'key'       => 'attribute_pa_condition',
 				'value'     => 'good',
 				'compare'   => '=',
 			),
-		),
+		),*/
    ));
    if ( $query->have_posts() ) {
       ob_start();

@@ -419,16 +419,72 @@ footer#site-footer h2 {
 }
 
 .woocommerce .gallery-bg {
-    width: 60vw;
-    position: absolute;
-    right: 0;
-    background-position: right;
-    background-repeat: no-repeat;
-    background-color: rgba(255, 241, 241, 1);
+	width: 60vw;
+	position: absolute;
+	right: 0;
+	background-position: right;
+	background-repeat: no-repeat;
+	background-color: rgba(255, 241, 241, 1);
 }
+
 .woocommerce-page div.product div.summary {
-    width: 38%;
+	width: 38%;
 }
-.woocommerce div.product div.images, .woocommerce-page div.product div.images {
-    width: 58%;
+
+.woocommerce div.product div.images,
+.woocommerce-page div.product div.images {
+	width: 58%;
+}
+
+.single-title-price .title-area .woocommerce-variation-price,
+.single-title-price .woocommerce-variation-availability,
+.single-title-price .woocommerce-variation-description {
+	display: none;
+}
+
+.single-title-price .title-area .woocommerce-variation-availability {
+	display: block
+}
+.single-title-price .title-area .woocommerce-variation-availability p.stock {
+    color: rgba(242, 90, 41, 1) !important;
+}
+.single-title-price .title-area .woocommerce-variation-availability {
+    display: block;
+    font-family: var(--poppins);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: -8px;
+    margin-top: -24px;
+}
+.single-title-price .title-area .woocommerce-variation-availability p.stock {
+    color: rgba(242, 90, 41, 1) !important;
+}
+.woocommerce div.product form.cart .variations label {
+    text-align: left;
+    font-family: var(--poppins);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+}
+li.variable-item .variable-item-contents {
+    font-family: var(--opensans);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    padding: 13px 30px;
+    width: auto;
+    height: auto;
+}
+.variable-items-wrapper li.variable-item {
+    height: auto !important;
+    border-radius: 8px !important;
+    border: 2px solid rgba(125, 125, 125, 1) !important;
+    box-shadow: none !important;
+}
+li.variable-item.selected {
+    background: rgba(255, 235, 229, 1) !important;
+    border-color: rgba(242, 90, 41, 1) !important;
+    color: rgba(242, 90, 41, 1) !important;
 }

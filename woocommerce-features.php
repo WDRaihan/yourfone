@@ -16,6 +16,7 @@ function yourfone_init(){
 	remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
 	remove_action('woocommerce_single_variation', 'woocommerce_single_variation', 10);
 	add_action('woocommerce_before_variations_form', 'yourfone_template_single_title_and_price', 5);
+	remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
 }
 add_action('init', 'yourfone_init');
 
@@ -290,7 +291,18 @@ add_action( 'save_post', 'yourfone_save_features_callback' );
 //Wrap title and price
 function yourfone_template_single_title_and_price(){
 	echo '<div class="single-title-price">';
+	echo '<div class="title-area">';
+	woocommerce_single_variation();
 	woocommerce_template_single_title();
+	echo '</div>';
 	woocommerce_single_variation();
 	echo '</div>';
+}
+
+add_filter('woo_variation_swatches_variable_item_custom_attributes', 'yourfone_variation_swatches_variable_item_custom_attributes', 10, 4);
+function yourfone_variation_swatches_variable_item_custom_attributes($html_attributes, $data, $attribute_type, $variation_data){
+	$term_id = $data['term_id'];
+	$description = get_term_field( 'description', $term_id );
+	$html_attributes['attribute-description'] = $description;
+	return $html_attributes;
 }

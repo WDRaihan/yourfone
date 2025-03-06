@@ -255,6 +255,7 @@ function yourfone_scripts() {
 
 	wp_enqueue_script( 'yourfone-navigation', '//cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array('jquery'), _S_VERSION, false );
 	wp_enqueue_script( 'yourfone-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'yourfone-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

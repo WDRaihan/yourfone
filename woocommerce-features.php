@@ -17,6 +17,13 @@ function yourfone_init(){
 	remove_action('woocommerce_single_variation', 'woocommerce_single_variation', 10);
 	add_action('woocommerce_before_variations_form', 'yourfone_template_single_title_and_price', 5);
 	remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
+	add_filter('woo_variation_swatches_variable_item_custom_attributes', 'yourfone_variation_swatches_variable_item_custom_attributes', 10, 4);
+	add_filter( 'woo_variation_swatches_html', 'yourfone_variation_swatches_html', 10, 4 );
+	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
+	remove_action('woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15);
+	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
+	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_features', 25);
+	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_details', 30);
 }
 add_action('init', 'yourfone_init');
 
@@ -299,10 +306,27 @@ function yourfone_template_single_title_and_price(){
 	echo '</div>';
 }
 
-add_filter('woo_variation_swatches_variable_item_custom_attributes', 'yourfone_variation_swatches_variable_item_custom_attributes', 10, 4);
+//Add attribute description to the attributes in single product page
 function yourfone_variation_swatches_variable_item_custom_attributes($html_attributes, $data, $attribute_type, $variation_data){
 	$term_id = $data['term_id'];
 	$description = get_term_field( 'description', $term_id );
 	$html_attributes['attribute-description'] = $description;
 	return $html_attributes;
+}
+
+//Add attribute description wrapper
+function yourfone_variation_swatches_html($html, $args, $swatches_data, $obj){
+	$html = $html;
+	$html .= '<div class="attribute-description"></div>';
+	return $html;
+}
+
+//Display product features on the single product page
+function yourfone_output_product_features(){
+	require_once 'template-parts/product-features.php';
+}
+
+//Display product details on the single product page
+function yourfone_output_product_details(){
+	require_once 'template-parts/product-details.php';
 }

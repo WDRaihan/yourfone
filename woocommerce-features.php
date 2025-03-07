@@ -24,8 +24,98 @@ function yourfone_init(){
 	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
 	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_features', 25);
 	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_details', 30);
+	remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
+	add_action('woocommerce_after_shop_loop_item_title', 'yourfone_template_loop_price', 10);
+	remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10);
 }
 add_action('init', 'yourfone_init');
+
+/* Shortcode: Display variation as product card */
+add_shortcode( 'single_variations', 'yourfone_single_variations_shortcode' );
+function yourfone_single_variations_shortcode() {
+
+	$query = new WP_Query( array(
+		'post_type' => 'product_variation',
+		'post_status' => 'publish',
+		'posts_per_page' => 24,
+		'paged' => absint( empty( $_GET['product-page'] ) ? 1 : $_GET['product-page'] ),
+		/*'meta_query' => array(
+			array(
+			'key' => 'attribute_pa_condition',
+			'value' => 'good',
+			'compare' => '=',
+			),
+		),*/
+	));
+	if ( $query->have_posts() ) {
+		ob_start();
+
+		wc_setup_loop(
+			array(
+				'name' => 'single_variations',
+				'is_shortcode' => true,
+				'is_search' => false,
+				'is_paginated' => true,
+				'total' => $query->found_posts,
+				'total_pages' => $query->max_num_pages,
+				'per_page' => $query->get( 'posts_per_page' ),
+				'current_page' => max( 1, $query->get( 'paged', 1 ) ),
+			)
+		);
+		echo '<div class="woocommerce">';
+		woocommerce_output_content_wrapper();
+		woocommerce_pagination();
+		woocommerce_product_loop_start();
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			wc_get_template_part( 'content', 'product' );
+		}
+		woocommerce_product_loop_end();
+		woocommerce_pagination();
+		wp_reset_postdata();
+		wc_reset_loop();
+		woocommerce_output_content_wrapper();
+		echo '</div>';
+		return ob_get_clean();
+	}
+	return;
+}
+
+/* Shortcode: Product slider */
+add_shortcode( 'yourfone_product_slider', 'yourfone_product_slider_shortcode' );
+function yourfone_product_slider_shortcode($atts) {
+	$attributes = shortcode_atts( array(
+		'ids' => '',
+		'limit' => -1,
+		'columns' => 5,
+	), $atts );
+
+	if( empty($attributes['ids']) ) return;
+	
+	$ids = explode(',', $attributes['ids']);
+	
+	$query = new WP_Query( array(
+		'post_type' => 'product',
+		'post_status' => 'publish',
+		'posts_per_page' => $attributes['limit'],
+		'post__in' => $ids,
+	));
+	if ( $query->have_posts() ) {
+		ob_start();
+		echo '<div class="woocommerce yourfone_product_slider" style="display:none" slider-columns="'.$attributes['columns'].'">';
+		echo '<ul class="products">';
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			wc_get_template_part( 'content', 'product' );
+		}
+		echo '</ul>';
+		wp_reset_postdata();
+		wc_reset_loop();
+		echo '</div>';
+		return ob_get_clean();
+	}
+	return;
+}
 
 /* Archive wrapper start */
 function yourfone_output_content_wrapper(){
@@ -43,6 +133,16 @@ function yourfone_output_content_wrapper_end(){
 
 /* Customize the product title in the product loop */
 function woocommerce_template_loop_product_title() {
+	$product = wc_get_product(get_the_ID());
+	$product_parent = $product->get_parent_id();
+	
+	if( $product_parent == 0 ){
+		echo '<a href="' . esc_url( get_the_permalink() ) . '" class="product-default-loop-title woocommerce-LoopProduct-link woocommerce-loop-product__link">';
+		echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>';
+		echo '</a>';
+		return;
+	}
+	
 	$parse_str = parse_url(get_the_permalink());
 	$str = $parse_str['query'];
 	parse_str($str, $attributes);
@@ -61,8 +161,25 @@ function woocommerce_template_loop_product_title() {
 	echo $html;
 }
 
+//Remove price from default product loop
+function yourfone_template_loop_price(){
+	$product = wc_get_product(get_the_ID());
+	$product_parent = $product->get_parent_id();
+	
+	if( $product_parent != 0 ){
+		woocommerce_template_loop_price();
+	}
+}
+
 /* Add color before title in product loop */
 function yourfone_add_color_attribute_before_title(){
+	$product = wc_get_product(get_the_ID());
+	$product_parent = $product->get_parent_id();
+	
+	if( $product_parent == 0 ){
+		return;
+	}
+	
 	$parse_str = parse_url(get_the_permalink());
 	$str = $parse_str['query'];
 	parse_str($str, $attributes);
@@ -74,6 +191,13 @@ function yourfone_add_color_attribute_before_title(){
 
 /* Add condition and add to cart button after title in product loop */
 function yourfone_add_condition_attribute_after_title(){
+	$product = wc_get_product(get_the_ID());
+	$product_parent = $product->get_parent_id();
+	
+	if( $product_parent == 0 ){
+		return;
+	}
+	
 	$parse_str = parse_url(get_the_permalink());
 	$str = $parse_str['query'];
 	parse_str($str, $attributes);

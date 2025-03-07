@@ -454,7 +454,7 @@ footer#site-footer h2 {
 
 .woocommerce .gallery-bg {
 	width: 100%;
-/*	position: absolute;*/
+	/*	position: absolute;*/
 	right: 0;
 	background-position: right;
 	background-repeat: no-repeat;
@@ -535,11 +535,11 @@ footer#site-footer {
 }
 
 .product-features-section {
-    clear: both;
-    margin-top: 60px;
-    margin-bottom: 50px;
-    max-width: 70%;
-    margin: 0 auto;
+	clear: both;
+	margin-top: 60px;
+	margin-bottom: 50px;
+	max-width: 70%;
+	margin: 0 auto;
 }
 
 .product-details-section {
@@ -547,14 +547,14 @@ footer#site-footer {
 }
 
 .product-features-section .product-features {
-    display: flex;
-/*    max-width: 70%;*/
-    margin: 0 auto;
+	display: flex;
+	/*    max-width: 70%;*/
+	margin: 0 auto;
 	margin-top: 30px;
 }
 
 .product-features-section .feature-image-area {
-    width: 50%;
+	width: 50%;
 }
 
 .product-features-section .feature-content-area {
@@ -562,9 +562,9 @@ footer#site-footer {
 }
 
 .product-features-section .feature-image {
-    width: 60%;
-    padding-top: 20px;
-    position: relative;
+	width: 60%;
+	padding-top: 20px;
+	position: relative;
 }
 
 .feature-image span {
@@ -629,35 +629,49 @@ footer#site-footer {
 	font-size: 14px;
 	line-height: 22px;
 }
+
 .details-heading {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
+
 .product-details-section {
 	max-width: 70%;
-    margin: 0 auto;
+	margin: 0 auto;
 	margin-top: 60px;
 	margin-bottom: 40px;
 }
+
 .product-details-section span.details-title {
-    font-family: var(--opensans);
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 37px;
-    vertical-align: middle;
-    color: #4A4A4A;
-    width: 120px;
-    display: inline-block;
+	font-family: var(--opensans);
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 37px;
+	vertical-align: middle;
+	color: #4A4A4A;
+	width: 120px;
+	display: inline-block;
 }
 
 .product-details-section span.details-text {
-    font-family: var(--opensans);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 37px;
-    vertical-align: middle;
-    color: #333333;
+	font-family: var(--opensans);
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 37px;
+	vertical-align: middle;
+	color: #333333;
 }
+
 .product-image-and-summery {
-    clear: both;
-    display: flow-root;
+	clear: both;
+}
+
+.product-default-loop-title {
+	text-align: center;
+	margin: 10px 0 14px 0;
+}
+.yourfone_product_slider .slick-slide {
+	padding: 0 12px
+}
+.yourfone_product_slider li.product {
+    margin: 20px 0 !important;
 }

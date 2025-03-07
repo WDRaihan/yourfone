@@ -17,6 +17,22 @@ jQuery(document).ready(function(){
 			slidesToShow: columns,
 			arrows: true,
 			rows: 1,
+			responsive: [{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: columns,
+				}
+			  }, {
+				breakpoint: 600,
+				settings: {
+					slidesToShow: 3,
+				}
+			  }, {
+				breakpoint: 300,
+				settings: {
+					slidesToShow: 2,
+				}
+		  	}],
 		});
 		
 	});

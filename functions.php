@@ -95,6 +95,9 @@ function yourfone_setup() {
 	
 	//Support WooComerce
 	add_theme_support( 'woocommerce' );
+	//add_theme_support('wc-product-gallery-zoom');
+    //add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
 }
 add_action( 'after_setup_theme', 'yourfone_setup' );
 
@@ -253,13 +256,20 @@ function yourfone_scripts() {
 	wp_enqueue_style( 'yourfone-slick', get_template_directory_uri() . '/css/slick.css', array(), _S_VERSION );
 	wp_enqueue_style( 'yourfone-slick-theme', get_template_directory_uri() . '/css/slick-theme.css', array(), _S_VERSION );
 	wp_enqueue_style( 'yourfone-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_enqueue_style( 'yourfone-responsive', get_template_directory_uri() . '/css/responsive.css', array(), _S_VERSION );
 	wp_style_add_data( 'yourfone-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'yourfone-navigation', '//cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array('jquery'), _S_VERSION, false );
+	wp_enqueue_script( 'wc-cart-fragments' );
 	wp_enqueue_script( 'yourfone-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 	wp_enqueue_script( 'yourfone-slick-slider', get_template_directory_uri() . '/js/slick.js', array('jquery'), _S_VERSION, false );
 	wp_enqueue_script( 'yourfone-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), _S_VERSION, true );
-
+	wp_localize_script( 'yourfone-scripts', 'yourfone_object',
+		array( 
+			'ajaxurl' => admin_url( 'admin-ajax.php' )
+		)
+	);
+	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -290,5 +300,4 @@ add_filter( 'wp_nav_menu_objects', 'yourfone_add_arrow_to_menu_items', 10, 2 );
 * WooCommerce customizations
 */
 require_once 'woocommerce-features.php';
-
 

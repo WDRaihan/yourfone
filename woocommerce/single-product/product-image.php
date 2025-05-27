@@ -36,8 +36,8 @@ $wrapper_classes   = apply_filters(
 	)
 );
 ?>
+<div class="gallery-bg" style="background-image: url(<?php echo get_template_directory_uri(); ?>/assets/images/product-image-bg.png)">
 <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
-	<div class="gallery-bg" style="background-image: url(<?php echo get_template_directory_uri(); ?>/assets/images/product-image-bg.png)">
 		
 		<div class="woocommerce-product-gallery__wrapper">
 			<?php

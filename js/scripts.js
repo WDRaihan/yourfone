@@ -1,7 +1,13 @@
 jQuery(document).ready(function(){
+	/*Single product page script*/
 	jQuery('li.variable-item').on('click', function(){
 		var description = jQuery(this).attr('attribute-description');
-		jQuery(this).parents('td.value.woo-variation-items-wrapper').find('.attribute-description').html(description);
+		
+		if( description == '' ){
+			jQuery(this).parents('td.value.woo-variation-items-wrapper').find('.attribute-description').hide();
+		}else{
+			jQuery(this).parents('td.value.woo-variation-items-wrapper').find('.attribute-description').html(description).show();
+		}
 	});
 	
 	//Init slick slider
@@ -37,5 +43,20 @@ jQuery(document).ready(function(){
 		
 	});
 	
+	/*Mobile menu*/
+	jQuery('#masthead .mobile-menu .menu-toggle .toggle-icon').on('click', function(){
+		jQuery('#masthead .mobile-menu #site-navigation').addClass('active-mobile-nav');
+	});
+	jQuery('#masthead .mobile-menu .nav-close').on('click', function(){
+		jQuery('#masthead .mobile-menu #site-navigation').removeClass('active-mobile-nav');
+	});
+	
+	jQuery('.mobile-menu #site-navigation ul#primary-menu li.menu-item a span.submenu-arrow').on('click', function(e){
+		e.preventDefault();
+		jQuery(this).parents('li.menu-item-has-children').find('ul.sub-menu').toggle();
+		jQuery('.up, .down',this).toggle();
+	});
 });
 
+//Refress cart count
+//jQuery(document.body).trigger('wc_fragment_refresh');

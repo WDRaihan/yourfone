@@ -31,12 +31,40 @@
 		<header id="masthead" class="site-header">
 			<div class="container">
 				<div class="row">
-					<div class="col-3">
+					<div class="col-3 header-left">
+					
+						<!--Desktop logo-->
 						<div class="site-branding">
 							<?php the_custom_logo(); ?>
 						</div><!-- .site-branding -->
+						
+						<!--Mobile menu-->
+						<div class="mobile-menu">
+							<div class="menu-toggle">
+								<div class="toggle-icon">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+							</div>
+							<nav id="site-navigation" class="main-navigation">
+								<div class="site-branding">
+									<?php the_custom_logo(); ?>
+								</div>
+								<div class="nav-close"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/x.png" alt=""></div>
+								<?php
+								wp_nav_menu(
+									array(
+										'theme_location' => 'menu-1',
+										'menu_id'        => 'primary-menu',
+									)
+								);
+								?>
+							</nav>
+						</div>
 					</div>
-					<div class="col-6">
+					<div class="col-6 header-center">
+						<!--Desktop menu-->
 						<nav id="site-navigation" class="main-navigation">
 							<?php
 							wp_nav_menu(
@@ -47,12 +75,19 @@
 							);
 							?>
 						</nav>
+						<!--Mobile logo-->
+						<div class="site-branding">
+							<?php the_custom_logo(); ?>
+						</div><!-- .site-branding -->
 					</div>
 					<div class="col-3">
 						<div class="header-right">
 							<ul>
-								<li><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/account.png" alt=""></a></li>
-								<li><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/cart.png" alt=""></a></li>
+								<li><a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/account.png" alt=""></a></li>
+								<li>
+									<?php $items_count = WC()->cart->get_cart_contents_count(); ?>
+									<a class="yourfone-cart-count" href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/cart.png" alt=""><span id="mini-cart-count"><?php echo $items_count ? $items_count : '&nbsp;'; ?></span></a>
+								</li>
 							</ul>
 						</div>
 					</div>

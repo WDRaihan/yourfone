@@ -24,9 +24,17 @@ function yourfone_init(){
 	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
 	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_features', 25);
 	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_details', 30);
+	add_action('woocommerce_after_single_product_summary', 'yourfone_output_related_products', 20);
 	remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
 	add_action('woocommerce_after_shop_loop_item_title', 'yourfone_template_loop_price', 10);
 	remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10);
+	add_action('woocommerce_before_single_product', 'yourfone_woo_product_image_bg', 10);
+	add_action( 'woocommerce_after_add_to_cart_form', 'yourfone_echo_variation_info' );
+	add_action( 'woocommerce_before_add_to_cart_quantity', 'yourfone_display_variation_info_before_addtocart', 10 );
+	add_action( 'woocommerce_before_add_to_cart_quantity', 'yourfone_display_shipping_info_before_addtocart', 15 );
+	add_action( 'woocommerce_after_add_to_cart_button', 'yourfone_display_shipping_info_after_addtocart', 10 );
+	add_action( 'wp_ajax_yourfone_related_products_by_ajax', 'yourfone_related_products_by_ajax' );
+	add_action( 'wp_ajax_nopriv_yourfone_related_products_by_ajax', 'yourfone_related_products_by_ajax' );
 }
 add_action('init', 'yourfone_init');
 
@@ -185,7 +193,9 @@ function yourfone_add_color_attribute_before_title(){
 	parse_str($str, $attributes);
 	
 	if( array_key_exists('attribute_pa_color', $attributes) ){
-		echo '<div class="loop-color-wrapper"><span class="attr-color"></span><span class="attr-color-text">'.esc_html($attributes['attribute_pa_color']).'</span></div>';
+		$term = get_term_by('slug', $attributes['attribute_pa_color'], 'pa_color');
+		$color = !empty(get_term_meta($term->term_id, 'product_attribute_color', true)) ? get_term_meta($term->term_id, 'product_attribute_color', true) : '#171E28';
+		echo '<div class="loop-color-wrapper"><span class="attr-color" style="background:'.$color.'"></span><span class="attr-color-text">'.esc_html($attributes['attribute_pa_color']).'</span></div>';
 	}
 }
 
@@ -425,6 +435,7 @@ function yourfone_template_single_title_and_price(){
 	echo '<div class="title-area">';
 	woocommerce_single_variation();
 	woocommerce_template_single_title();
+	echo '<span class="selected-variations"></span>';
 	echo '</div>';
 	woocommerce_single_variation();
 	echo '</div>';
@@ -434,14 +445,20 @@ function yourfone_template_single_title_and_price(){
 function yourfone_variation_swatches_variable_item_custom_attributes($html_attributes, $data, $attribute_type, $variation_data){
 	$term_id = $data['term_id'];
 	$description = get_term_field( 'description', $term_id );
-	$html_attributes['attribute-description'] = $description;
+
+	if ( ! is_wp_error( $description ) ) {
+        $html_attributes['attribute-description'] = $description;
+    } else {
+        $html_attributes['attribute-description'] = ''; // or handle error differently
+    }
+	
 	return $html_attributes;
 }
 
 //Add attribute description wrapper
 function yourfone_variation_swatches_html($html, $args, $swatches_data, $obj){
 	$html = $html;
-	$html .= '<div class="attribute-description"></div>';
+	$html .= '<div class="attribute-description" style="display:none"></div>';
 	return $html;
 }
 
@@ -453,4 +470,186 @@ function yourfone_output_product_features(){
 //Display product details on the single product page
 function yourfone_output_product_details(){
 	require_once 'template-parts/product-details.php';
+}
+
+//Display related products on the single product page
+function yourfone_output_related_products(){
+	require_once 'template-parts/related-products.php';
+}
+
+//Single product background
+function yourfone_woo_product_image_bg(){
+?>
+<style>
+	.woocommerce-product-gallery.images {
+		background-image: url(<?php echo get_template_directory_uri(); ?>/assets/images/product-image-bg.png)
+	}
+</style>
+<?php
+}
+
+//Display selected variables on the single product page after title
+function yourfone_echo_variation_info() {
+	global $product;
+	if ( ! $product->is_type( 'variable' ) ) return;
+	?>
+  	<script>
+		jQuery(document).on('found_variation', 'form.cart', function( event, variation ) {
+			
+			let attributeString = Object.values(variation.attributes)
+			  .map(value => {
+				// Replace hyphens with spaces
+				let formatted = value.replace(/-/g, ' ');
+				// Capitalize each word
+				formatted = formatted.replace(/\b\w/g, char => char.toUpperCase());
+				formatted = formatted.replace(/(\d+)\s*gb\b/gi, '$1 GB');
+				return formatted;
+			  })
+			  .join(' | ');
+			jQuery('.single-title-price .selected-variations').html(attributeString);
+			
+			var attributes = variation.attributes;
+			var attributeCondition = attributes.attribute_pa_condition;
+			var variationPrice = variation.display_price;
+			
+			jQuery.ajax({
+				type: 'POST',
+				url: yourfone_object.ajaxurl,
+				data: {
+					action: 'yourfone_related_products_by_ajax',
+					condition: attributeCondition,
+					price: variationPrice
+				},
+				success: function(response){
+					//console.log(response);
+					jQuery('.woo-related-products').html(response);
+				}
+			});
+			
+		});
+  	</script>
+	<?php
+}
+
+//yourfone related products by ajax
+function yourfone_related_products_by_ajax(){
+	$condition = $_POST['condition'];
+	$price = $_POST['price'];
+	
+	$target_price = $price;
+	$min_price = $target_price - 100;
+	$max_price = $target_price + 100;
+	
+	$query = new WP_Query( array(
+		'post_type'      => 'product_variation',
+		'post_status'    => 'publish',
+		'posts_per_page' => 24,
+		'paged'          => absint( empty( $_GET['product-page'] ) ? 1 : $_GET['product-page'] ),
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array(
+				'key'     => 'attribute_pa_condition',
+				'value'   => $condition,
+				'compare' => '=',
+			),
+			array(
+				'key'     => '_price',
+				'value'   => array( $min_price, $max_price ),
+				'compare' => 'BETWEEN',
+				'type'    => 'NUMERIC'
+			),
+		),
+	) );
+	
+	echo yourfone_get_product_loop($query);
+	die();
+}
+
+function yourfone_get_product_loop($query){
+	if ( $query->have_posts() ) {
+		ob_start();
+		wc_setup_loop(
+			array(
+				'name' => 'single_variations',
+				'is_shortcode' => true,
+				'is_search' => false,
+				'is_paginated' => true,
+				'total' => $query->found_posts,
+				'total_pages' => $query->max_num_pages,
+				'per_page' => $query->get( 'posts_per_page' ),
+				'current_page' => max( 1, $query->get( 'paged', 1 ) ),
+			)
+		);
+		echo '<div class="woocommerce">';
+		//woocommerce_output_content_wrapper();
+		woocommerce_pagination();
+		//woocommerce_product_loop_start();
+		echo '<ul class="products columns-5">';
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			wc_get_template_part( 'content', 'product' );
+		}
+		//woocommerce_product_loop_end();
+		echo '</ul>';
+		woocommerce_pagination();
+		wp_reset_postdata();
+		wc_reset_loop();
+		//woocommerce_output_content_wrapper();
+		echo '</div>';
+		
+		return ob_get_clean();
+	}
+}
+
+function yourfone_display_variation_info_before_addtocart() {
+	echo '<div class="single-title-price" style="padding:24px 0 24px 0;border:1px solid #ddd;border-left:0;border-right:0;margin:20px 0;"
+>';
+	echo '<div class="title-area">';
+	woocommerce_single_variation();
+	echo '<span class="selected-variations"></span>';
+	echo '</div>';
+	woocommerce_single_variation();
+	echo '</div>';
+}
+
+function yourfone_display_shipping_info_before_addtocart() {
+	echo '<div class="shipping-info-before-cart-btn">';
+	echo '<p><span class="shipping-icon"><img src="'.get_template_directory_uri().'/assets/images/shipping-icon.png"></span>Ready to be picked up</p>';
+	echo '</div>';
+}
+
+function yourfone_display_shipping_info_after_addtocart() {
+	echo '<div class="shipping-info-after-cart-btn">';
+	echo '<p>Pickup available at <b>Nerang Mall, Australia.</b><br>5A/7-27 Cayuga St, Nerang. (Next to Nerang AU Post)<br>Usually ready in 2 hours (during opening hours)</p>';
+	echo '</div>';
+}
+
+function custom_mini_cart() { 
+    echo '<a href="#" class="dropdown-back" data-toggle="dropdown"> ';
+        echo '<i class="fa fa-shopping-cart" aria-hidden="true"></i>';
+        echo '<div class="basket-item-count" style="display: inline;">';
+            echo '<span class="cart-items-count count">';
+                echo WC()->cart->get_cart_contents_count();
+            echo '</span>';
+        echo '</div>';
+    echo '</a>';
+    echo '<ul class="dropdown-menu dropdown-menu-mini-cart">';
+        echo '<li>';
+            echo '<div class="widget_shopping_cart_content">';
+                woocommerce_mini_cart();
+            echo '</div>';
+        echo '</li>';
+    echo '</ul>';
+}
+add_shortcode( 'custom_techno_mini_cart', 'custom_mini_cart' );
+
+add_filter( 'woocommerce_add_to_cart_fragments', 'wc_refresh_mini_cart_count');
+function wc_refresh_mini_cart_count($fragments){
+    ob_start();
+    $items_count = WC()->cart->get_cart_contents_count();
+    ?>
+    <div id="mini-cart-count"><?php echo $items_count ? $items_count : '&nbsp;'; ?></div>
+    <?php
+        $fragments['#mini-cart-count'] = ob_get_clean();
+    return $fragments;
 }

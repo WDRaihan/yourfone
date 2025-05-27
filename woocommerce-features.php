@@ -40,53 +40,86 @@ add_action('init', 'yourfone_init');
 
 /* Shortcode: Display variation as product card */
 add_shortcode( 'single_variations', 'yourfone_single_variations_shortcode' );
-function yourfone_single_variations_shortcode() {
 
-	$query = new WP_Query( array(
-		'post_type' => 'product_variation',
-		'post_status' => 'publish',
-		'posts_per_page' => 24,
-		'paged' => absint( empty( $_GET['product-page'] ) ? 1 : $_GET['product-page'] ),
-		/*'meta_query' => array(
-			array(
-			'key' => 'attribute_pa_condition',
-			'value' => 'good',
+function yourfone_single_variations_shortcode( $atts ) {
+
+	// Parse shortcode attributes
+	$atts = shortcode_atts( array(
+		'attribute'    => '',
+		'value'        => '',
+		'attribute_2'  => '',
+		'value_2'      => '',
+	), $atts, 'single_variations' );
+
+	$meta_query = array();
+
+	// Add first attribute filter if provided
+	if ( ! empty( $atts['attribute'] ) && ! empty( $atts['value'] ) ) {
+		$meta_query[] = array(
+			'key'     => 'attribute_' . sanitize_key( $atts['attribute'] ),
+			'value'   => sanitize_text_field( $atts['value'] ),
 			'compare' => '=',
-			),
-		),*/
-	));
+		);
+	}
+
+	// Add second attribute filter if provided
+	if ( ! empty( $atts['attribute_2'] ) && ! empty( $atts['value_2'] ) ) {
+		$meta_query[] = array(
+			'key'     => 'attribute_' . sanitize_key( $atts['attribute_2'] ),
+			'value'   => sanitize_text_field( $atts['value_2'] ),
+			'compare' => '=',
+		);
+	}
+
+	$query_args = array(
+		'post_type'      => 'product_variation',
+		'post_status'    => 'publish',
+		'posts_per_page' => 24,
+		'paged'          => absint( empty( $_GET['product-page'] ) ? 1 : $_GET['product-page'] ),
+	);
+
+	// Add meta_query if needed
+	if ( ! empty( $meta_query ) ) {
+		$query_args['meta_query'] = $meta_query;
+	}
+
+	$query = new WP_Query( $query_args );
+
 	if ( $query->have_posts() ) {
 		ob_start();
 
-		wc_setup_loop(
-			array(
-				'name' => 'single_variations',
-				'is_shortcode' => true,
-				'is_search' => false,
-				'is_paginated' => true,
-				'total' => $query->found_posts,
-				'total_pages' => $query->max_num_pages,
-				'per_page' => $query->get( 'posts_per_page' ),
-				'current_page' => max( 1, $query->get( 'paged', 1 ) ),
-			)
-		);
+		wc_setup_loop( array(
+			'name'         => 'single_variations',
+			'is_shortcode' => true,
+			'is_search'    => false,
+			'is_paginated' => true,
+			'total'        => $query->found_posts,
+			'total_pages'  => $query->max_num_pages,
+			'per_page'     => $query->get( 'posts_per_page' ),
+			'current_page' => max( 1, $query->get( 'paged', 1 ) ),
+		) );
+
 		echo '<div class="woocommerce">';
 		woocommerce_output_content_wrapper();
 		woocommerce_pagination();
 		woocommerce_product_loop_start();
+
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			wc_get_template_part( 'content', 'product' );
 		}
+
 		woocommerce_product_loop_end();
 		woocommerce_pagination();
 		wp_reset_postdata();
 		wc_reset_loop();
 		woocommerce_output_content_wrapper();
 		echo '</div>';
+
 		return ob_get_clean();
 	}
-	return;
+
+	return '';
 }
 
 /* Shortcode: Product slider */
@@ -624,31 +657,24 @@ function yourfone_display_shipping_info_after_addtocart() {
 	echo '</div>';
 }
 
-function custom_mini_cart() { 
-    echo '<a href="#" class="dropdown-back" data-toggle="dropdown"> ';
-        echo '<i class="fa fa-shopping-cart" aria-hidden="true"></i>';
-        echo '<div class="basket-item-count" style="display: inline;">';
-            echo '<span class="cart-items-count count">';
-                echo WC()->cart->get_cart_contents_count();
-            echo '</span>';
-        echo '</div>';
-    echo '</a>';
-    echo '<ul class="dropdown-menu dropdown-menu-mini-cart">';
-        echo '<li>';
+//Mini cart
+function yourfone_mini_cart() { 
+    echo '<div class="dropdown-menu yourfone_mini_cart dropdown-menu-mini-cart">';
+        echo '<div>';
             echo '<div class="widget_shopping_cart_content">';
                 woocommerce_mini_cart();
             echo '</div>';
-        echo '</li>';
-    echo '</ul>';
+        echo '</div>';
+    echo '</div>';
 }
-add_shortcode( 'custom_techno_mini_cart', 'custom_mini_cart' );
+add_shortcode( 'yourfone_mini_cart', 'yourfone_mini_cart' );
 
 add_filter( 'woocommerce_add_to_cart_fragments', 'wc_refresh_mini_cart_count');
 function wc_refresh_mini_cart_count($fragments){
     ob_start();
     $items_count = WC()->cart->get_cart_contents_count();
     ?>
-    <div id="mini-cart-count"><?php echo $items_count ? $items_count : '&nbsp;'; ?></div>
+    <div id="mini-cart-count"><?php echo $items_count ? $items_count : '0'; ?></div>
     <?php
         $fragments['#mini-cart-count'] = ob_get_clean();
     return $fragments;

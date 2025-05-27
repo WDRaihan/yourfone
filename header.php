@@ -86,7 +86,8 @@
 								<li><a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/account.png" alt=""></a></li>
 								<li>
 									<?php $items_count = WC()->cart->get_cart_contents_count(); ?>
-									<a class="yourfone-cart-count" href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/cart.png" alt=""><span id="mini-cart-count"><?php echo $items_count ? $items_count : '&nbsp;'; ?></span></a>
+									<a class="yourfone-cart-count" href="<?php echo wc_get_cart_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/cart.png" alt=""><span id="mini-cart-count"><?php echo $items_count ? $items_count : '0'; ?></span></a>
+									<?php //echo do_shortcode('[yourfone_mini_cart]'); ?>
 								</li>
 							</ul>
 						</div>

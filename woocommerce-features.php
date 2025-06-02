@@ -464,7 +464,7 @@ add_action( 'save_post', 'yourfone_save_features_callback' );
 
 //Wrap title and price
 function yourfone_template_single_title_and_price(){
-	echo '<div class="single-title-price">';
+	echo '<div class="single-title-price top-title">';
 	echo '<div class="title-area">';
 	woocommerce_single_variation();
 	woocommerce_template_single_title();
@@ -527,6 +527,46 @@ function yourfone_echo_variation_info() {
 	if ( ! $product->is_type( 'variable' ) ) return;
 	?>
   	<script>
+		
+		let currentSlide = 0;
+		let totalSlides = 0;
+		let visibleSlides = 5;
+
+		function initSlider() {
+		  const track = document.querySelector('.yourfone_related_product_slider ul.products');
+		  const slides = document.querySelectorAll('.yourfone_related_product_slider li.product');
+		  totalSlides = slides.length;
+
+		  const prevBtn = document.querySelector('.prev-btn');
+		  const nextBtn = document.querySelector('.next-btn');
+
+		  const maxIndex = Math.max(0, totalSlides - visibleSlides);
+
+		  function updateSlider() {
+			const shift = (100 / visibleSlides) * currentSlide;
+			track.style.transform = `translateX(-${shift}%)`;
+		  }
+
+		  prevBtn.onclick = () => {
+			if (currentSlide > 0) {
+			  currentSlide--;
+			  updateSlider();
+			}
+		  };
+
+		  nextBtn.onclick = () => {
+			if (currentSlide < maxIndex) {
+			  currentSlide++;
+			  updateSlider();
+			}
+		  };
+
+		  currentSlide = 0;
+		  updateSlider();
+		}
+
+		
+		
 		jQuery(document).on('found_variation', 'form.cart', function( event, variation ) {
 			
 			let attributeString = Object.values(variation.attributes)
@@ -555,7 +595,9 @@ function yourfone_echo_variation_info() {
 				},
 				success: function(response){
 					//console.log(response);
-					jQuery('.woo-related-products').html(response);
+					jQuery('.woo-related-products .yourfone_related_product_slider ul.products').html(response);
+					initSlider();
+					jQuery('.yourfone_related_product_slider').css('opacity','1');
 				}
 			});
 			
@@ -613,22 +655,13 @@ function yourfone_get_product_loop($query){
 				'current_page' => max( 1, $query->get( 'paged', 1 ) ),
 			)
 		);
-		echo '<div class="woocommerce">';
-		//woocommerce_output_content_wrapper();
-		woocommerce_pagination();
-		//woocommerce_product_loop_start();
-		echo '<ul class="products columns-5">';
+
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			wc_get_template_part( 'content', 'product' );
 		}
-		//woocommerce_product_loop_end();
-		echo '</ul>';
-		woocommerce_pagination();
 		wp_reset_postdata();
 		wc_reset_loop();
-		//woocommerce_output_content_wrapper();
-		echo '</div>';
 		
 		return ob_get_clean();
 	}

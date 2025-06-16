@@ -12,8 +12,49 @@
 	}
 }
 
+@media (min-width: 992px) {
+	.product-summery-col {
+		padding-left: 30px
+	}
+}
+
+@media (max-width: 991px) {
+	body.woocommerce-cart .woocommerce {
+		display: block;
+	}
+
+	body.woocommerce-cart form.woocommerce-cart-form {
+		width: 100%;
+	}
+
+	body.woocommerce-cart .cart-collaterals {
+		width: 100%;
+	}
+
+	body.woocommerce-cart form.woocommerce-cart-form {
+		margin: 20px 0;
+	}
+
+	body.woocommerce-cart .cart-collaterals {
+		margin: 20px 0;
+	}
+
+	.section-title {
+		font-size: 20px;
+	}
+
+	.cart_totals h2 {
+		font-size: 20px;
+	}
+
+	.wp-block-woocommerce-checkout-order-summary-block .wc-block-components-checkout-order-summary__title p.wc-block-components-checkout-order-summary__title-text,
+	body.woocommerce-checkout form.wc-block-checkout__form .wc-block-components-title.wc-block-components-title {
+		font-size: 20px;
+	}
+}
+
 @media (max-width: 767px) {
-	#masthead .col-3.header-left {
+	#masthead .header-left {
 		display: flex;
 		align-items: stretch;
 		flex-wrap: wrap;
@@ -30,7 +71,7 @@
 	}
 
 	.header-center .site-branding a {
-		max-width: 104px;
+		max-width: 124px;
 	}
 
 	.header-center .site-branding a img.custom-logo {
@@ -75,7 +116,7 @@
 	}
 
 	.footer-widgets .row > div {
-		margin-bottom: 30px
+		margin-bottom: 20px
 	}
 
 	.footer-widgets .row > div:last-child {
@@ -86,11 +127,149 @@
 		padding: 5px 0px;
 		margin-left: 0;
 	}
+
 	#masthead .header-right ul li:last-child {
-		margin-left: 16px;
+		margin-left: 26.5px;
+		margin-right: 6px;
 	}
-	#masthead .header-right ul li a img {
-		width: 20px;
-		height: auto;
+
+	#masthead .header-right ul li a {
+		width: 19.56px;
+	}
+
+	.woocommerce ul.products li.product .woocommerce-loop-product__title {
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.yourfone_product_slider li.product {
+		min-height: 153px;
+	}
+
+	.yourfone_product_slider .slick-prev,
+	.yourfone_product_slider .slick-next {
+		display: none !important
+	}
+
+	.site-footer .footer-bottom {
+		margin-top: 20px;
+	}
+
+	#masthead {
+		height: 70px;
+	}
+
+	#masthead.sticky-header {
+		position: fixed;
+		width: 100%;
+		background: #fff;
+		z-index: 9999;
+		top: 0;
+	}
+
+	.woocommerce div.product div.images,
+	.woocommerce-page div.product div.images {
+		width: 100%;
+	}
+
+	.woocommerce-page div.product div.summary {
+		width: 100%;
+	}
+
+	.single-title-price.top-title {
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding: 20px 15px;
+		width: 100%;
+	}
+
+	.single-title-price.top-title.sticky-title {
+		position: fixed;
+		background: #fff;
+		z-index: 99;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.product-image-and-summery {
+		position: relative;
+	}
+
+	.woocommerce div.product div.images.woocommerce-product-gallery {
+		padding-top: 120px;
+	}
+
+	.product-image-and-summery .product-image-col {
+		padding-left: 0;
+		padding-right: 0
+	}
+
+	.single-title-price .title-area .woocommerce-variation-availability p.stock {
+		font-size: 12px !important;
+	}
+
+	.woocommerce div.product .product_title {
+		font-size: 24px;
+	}
+
+	.single-title-price span.price {
+		font-size: 24px !important;
+	}
+
+	.woocommerce div.product div.summary {
+		margin-top: 0;
+	}
+
+	.woocommerce div.product div.images {
+		margin-bottom: 10px;
+	}
+
+	.woocommerce-product-gallery .flaticon-back {
+		left: 15px;
+	}
+
+	.woocommerce-product-gallery .flaticon-right-arrow {
+		right: 15px;
+	}
+
+	.woocommerce div.product form.cart .variations label {
+		font-size: 13.96px
+	}
+
+	.related-products-wrap {
+		margin: 15px 0 20px 0;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.product-features-section .product-features {
+		margin-top: 30px;
+		display: block
+	}
+
+	.product-features-section .feature-image-area {
+		width: 100%;
+	}
+
+	.product-features-section .feature-content-area {
+		width: 100%;
+	}
+
+	.product-details-section {
+		margin-top: 30px;
+	}
+}
+
+@media (max-width: 1280px) {
+	.woocommerce div.product .slick-slide::before {
+		width: 64px;
+		height: 64px;
+		left: calc(50% - 32px);
+		margin-left: -160px;
+	}
+}
+
+@media (max-width: 600px) {
+	.woocommerce-cart-form__cart-item .qib-button-wrapper {
+		float: left !important;
 	}
 }

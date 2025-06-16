@@ -31,7 +31,7 @@
 		<header id="masthead" class="site-header">
 			<div class="container">
 				<div class="row">
-					<div class="col-3 header-left">
+					<div class="col-4 col-md-3 header-left">
 					
 						<!--Desktop logo-->
 						<div class="site-branding">
@@ -63,7 +63,7 @@
 							</nav>
 						</div>
 					</div>
-					<div class="col-6 header-center">
+					<div class="col-4 col-md-6 header-center">
 						<!--Desktop menu-->
 						<nav id="site-navigation" class="main-navigation">
 							<?php
@@ -80,7 +80,7 @@
 							<?php the_custom_logo(); ?>
 						</div><!-- .site-branding -->
 					</div>
-					<div class="col-3">
+					<div class="col-4 col-md-3">
 						<div class="header-right">
 							<ul>
 								<li><a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/account.png" alt=""></a></li>

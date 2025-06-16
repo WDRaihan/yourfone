@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
 			jQuery(this).parents('td.value.woo-variation-items-wrapper').find('.attribute-description').html(description).show();
 		}
 	});
-	
+
 	//Init slick slider
 	jQuery('.yourfone_product_slider').each(function(){
 		var target = jQuery(this).find('ul.products');
@@ -24,17 +24,27 @@ jQuery(document).ready(function(){
 			arrows: true,
 			rows: 1,
 			responsive: [{
-				breakpoint: 1024,
+				breakpoint: 1199,
 				settings: {
-					slidesToShow: columns,
+					slidesToShow: 6,
 				}
 			  }, {
-				breakpoint: 600,
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 5,
+				}
+			  }, {
+				breakpoint: 767,
+				settings: {
+					slidesToShow: 4,
+				}
+			  }, {
+				breakpoint: 500,
 				settings: {
 					slidesToShow: 3,
 				}
 			  }, {
-				breakpoint: 300,
+				breakpoint: 390,
 				settings: {
 					slidesToShow: 2,
 				}
@@ -58,5 +68,14 @@ jQuery(document).ready(function(){
 	});
 });
 
-//Refress cart count
-//jQuery(document.body).trigger('wc_fragment_refresh');
+jQuery(window).on('load', function(){
+	jQuery('li.variable-item').each(function(){
+		var description = jQuery(this).attr('attribute-description');
+		
+		if( description == '' ){
+			jQuery(this).parents('td.value.woo-variation-items-wrapper').find('.attribute-description').hide();
+		}else{
+			jQuery(this).parents('td.value.woo-variation-items-wrapper').find('.attribute-description').html(description).show();
+		}
+	});
+});

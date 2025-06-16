@@ -2,10 +2,10 @@
 
 /*Init hooks*/
 function yourfone_init(){
-	remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
-	remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
-	add_action('woocommerce_before_main_content', 'yourfone_output_content_wrapper', 10);
-	add_action('woocommerce_after_main_content', 'yourfone_output_content_wrapper_end', 10);
+	//remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+	//remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+	//add_action('woocommerce_before_main_content', 'yourfone_output_content_wrapper', 10);
+	//add_action('woocommerce_after_main_content', 'yourfone_output_content_wrapper_end', 10);
 	remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
 	add_action('woocommerce_shop_loop_item_title', 'yourfone_add_color_attribute_before_title', 5);
 	add_action('woocommerce_shop_loop_item_title', 'yourfone_add_condition_attribute_after_title', 15);
@@ -35,6 +35,7 @@ function yourfone_init(){
 	add_action( 'woocommerce_after_add_to_cart_button', 'yourfone_display_shipping_info_after_addtocart', 10 );
 	add_action( 'wp_ajax_yourfone_related_products_by_ajax', 'yourfone_related_products_by_ajax' );
 	add_action( 'wp_ajax_nopriv_yourfone_related_products_by_ajax', 'yourfone_related_products_by_ajax' );
+	add_filter( 'woocommerce_show_variation_price', '__return_true' );
 }
 add_action('init', 'yourfone_init');
 
@@ -160,11 +161,7 @@ function yourfone_product_slider_shortcode($atts) {
 
 /* Archive wrapper start */
 function yourfone_output_content_wrapper(){
-	if( is_product() ){
-		echo '<div id="main"><div class="container">';
-	}else{
-		echo '<div id="main"><div class="container">';
-	}
+	echo '<div id="main"><div class="container">';
 }
 
 /* Archive wrapper end */
@@ -178,7 +175,10 @@ function woocommerce_template_loop_product_title() {
 	$product_parent = $product->get_parent_id();
 	
 	if( $product_parent == 0 ){
-		echo '<a href="' . esc_url( get_the_permalink() ) . '" class="product-default-loop-title woocommerce-LoopProduct-link woocommerce-loop-product__link">';
+		
+		$product_permalink = !empty(get_post_meta( get_the_ID(), 'variation_url', true )) ? get_post_meta( get_the_ID(), 'variation_url', true ) : get_the_permalink();
+		
+		echo '<a href="' . esc_url( $product_permalink ) . '" class="product-default-loop-title woocommerce-LoopProduct-link woocommerce-loop-product__link">';
 		echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>';
 		echo '</a>';
 		return;
@@ -266,6 +266,7 @@ function yourfone_add_condition_attribute_after_title(){
 function yourfone_add_product_details_meta_boxes(){
 	add_meta_box( 'yourfone_product_features', __( 'Product Features','yourfone' ),'yourfone_product_features_callback', 'product' );
 	add_meta_box( 'yourfone_product_details', __( 'Product Details','yourfone' ),'yourfone_product_details_callback', 'product' );
+	add_meta_box( 'yourfone_product_slider_settings', __( 'Product Slider Setting','yourfone' ),'yourfone_product_slider_settings_callback', 'product' );
 }
 add_action('add_meta_boxes', 'yourfone_add_product_details_meta_boxes' );
 
@@ -462,6 +463,46 @@ function yourfone_save_features_callback( $post_id ) {
 }
 add_action( 'save_post', 'yourfone_save_features_callback' );
 
+/* Product slider settings */
+function yourfone_product_slider_settings_callback(){
+	?>
+	<div class="meta-field-group">
+		<label class="field-label" for="variation-url"><?php echo esc_html('Variation URL','yourfone'); ?></label>
+		<input type="text" class="regular-text" name="variation_url" id="variation-url" value="<?php echo esc_html(get_post_meta(get_the_id(), 'variation_url', true)); ?>" placeholder="Enter a variation URL for the slider">
+	</div>
+	<?php wp_nonce_field( 'product_slider_settings_nonce_action', 'product_slider_settings_nonce_action' ); ?>
+	<?php
+}
+
+/* Save slider settings */
+add_action( 'save_post', 'yourfone_save_product_slider_settings' );
+function yourfone_save_product_slider_settings($post_id){
+	$postdata = wp_unslash( $_POST );
+	
+	//Save product features
+	if ( ! isset( $_POST['product_slider_settings_nonce_action'] ) ) {
+		return;
+	}
+
+	if ( ! wp_verify_nonce( $_POST['product_features_nonce_action'], 'product_features_nonce_action' ) ) {
+		return;
+	}
+
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	if ( !isset( $_POST['post_type'] ) && 'product' != $_POST['post_type'] ) {
+		return;
+	}
+	
+	update_post_meta($post_id, 'variation_url', sanitize_text_field($_POST['variation_url']));
+}
+
 //Wrap title and price
 function yourfone_template_single_title_and_price(){
 	echo '<div class="single-title-price top-title">';
@@ -514,8 +555,14 @@ function yourfone_output_related_products(){
 function yourfone_woo_product_image_bg(){
 ?>
 <style>
-	.woocommerce-product-gallery.images {
-		background-image: url(<?php echo get_template_directory_uri(); ?>/assets/images/product-image-bg.png)
+	.product-image-col .product-image-bg {
+		background-image: url(http://yourfone.test/wp-content/themes/yourfone/assets/images/product-image-bg.png);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		position: sticky;
+		max-width: 100%;
+		top: 0;
 	}
 </style>
 <?php
@@ -528,9 +575,9 @@ function yourfone_echo_variation_info() {
 	?>
   	<script>
 		
-		let currentSlide = 0;
+		/*let currentSlide = 0;
 		let totalSlides = 0;
-		let visibleSlides = 5;
+		let visibleSlides = 1;
 
 		function initSlider() {
 		  const track = document.querySelector('.yourfone_related_product_slider ul.products');
@@ -563,8 +610,56 @@ function yourfone_echo_variation_info() {
 
 		  currentSlide = 0;
 		  updateSlider();
+		}*/
+		
+		let currentSlide = 0;
+
+		function getVisibleSlidesCount() {
+		  if (window.innerWidth >= 1024) return 5;
+		  if (window.innerWidth >= 768) return 3;
+		  return 2;
 		}
 
+		function initSlider() {
+		  const track = document.querySelector('.yourfone_related_product_slider ul.products');
+		  const slides = document.querySelectorAll('.yourfone_related_product_slider li.product');
+		  const prevBtn = document.querySelector('.prev-btn');
+		  const nextBtn = document.querySelector('.next-btn');
+
+		  if (!track || slides.length === 0) return;
+
+		  function updateSlider() {
+			const visibleSlides = getVisibleSlidesCount();
+			const slideWidth = slides[0].offsetWidth;
+			const maxIndex = Math.max(0, slides.length - visibleSlides);
+			currentSlide = Math.min(currentSlide, maxIndex);
+
+			const shift = currentSlide * slideWidth;
+			track.style.transform = `translateX(-${shift}px)`;
+		  }
+
+		  prevBtn.onclick = () => {
+			if (currentSlide > 0) {
+			  currentSlide--;
+			  updateSlider();
+			}
+		  };
+
+		  nextBtn.onclick = () => {
+			const visibleSlides = getVisibleSlidesCount();
+			const maxIndex = Math.max(0, slides.length - visibleSlides);
+			if (currentSlide < maxIndex) {
+			  currentSlide++;
+			  updateSlider();
+			}
+		  };
+
+		  window.addEventListener('resize', () => {
+			updateSlider();
+		  });
+
+		  updateSlider();
+		}
 		
 		
 		jQuery(document).on('found_variation', 'form.cart', function( event, variation ) {
@@ -711,4 +806,13 @@ function wc_refresh_mini_cart_count($fragments){
     <?php
         $fragments['#mini-cart-count'] = ob_get_clean();
     return $fragments;
+}
+
+add_filter('woocommerce_available_variation', 'hide_out_of_stock_variations', 10, 3);
+
+function hide_out_of_stock_variations($variation_data, $product, $variation) {
+    if (!$variation->is_in_stock()) {
+        return false; // This removes the variation from the dropdown.
+    }
+    return $variation_data;
 }

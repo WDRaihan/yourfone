@@ -14,29 +14,31 @@ $feature_camera = array_key_exists('feature_camera', $product_features) ? $produ
 $feature_weight = array_key_exists('feature_weight', $product_features) ? $product_features['feature_weight'] : '';
 $feature_sim = array_key_exists('feature_sim', $product_features) ? $product_features['feature_sim'] : '';
 ?>
-<div class="product-features-section">
-	<div class="features-heading">
-		<h2 class="product-feature-title align-center section-title"><?php echo esc_html($feature_title); ?></h2>
-		<p class="style-paragraph align-center"><?php echo $feature_description; ?></p>
-	</div>
-	<div class="product-features">
-		<div class="feature-image-area">
-			<div class="feature-image">
-				<span class="product-width"><?php echo esc_html($product_width); ?></span>
-				<span class="product-thicknes"><?php echo esc_html($product_thicknes); ?></span>
-				<span class="product-height"><?php echo esc_html($product_height); ?></span>
-				<img src="<?php echo esc_url($feature_image); ?>" alt="">
-			</div>
+<div class="container">
+	<div class="product-features-section">
+		<div class="features-heading">
+			<h2 class="product-feature-title align-center section-title"><?php echo esc_html($feature_title); ?></h2>
+			<p class="style-paragraph align-center"><?php echo $feature_description; ?></p>
 		</div>
-		<div class="feature-content-area">
-			<div class="feature-contents">
-				<ul>
-					<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/screen.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_screen); ?></span></li>
-					<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/power.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_power); ?></span></li>
-					<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/camera.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_camera); ?></span></li>
-					<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/weight.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_weight); ?></span></li>
-					<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/sim.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_sim); ?></span></li>
-				</ul>
+		<div class="product-features">
+			<div class="feature-image-area">
+				<div class="feature-image">
+					<span class="product-width"><?php echo esc_html($product_width); ?></span>
+					<span class="product-thicknes"><?php echo esc_html($product_thicknes); ?></span>
+					<span class="product-height"><?php echo esc_html($product_height); ?></span>
+					<img src="<?php echo esc_url($feature_image); ?>" alt="">
+				</div>
+			</div>
+			<div class="feature-content-area">
+				<div class="feature-contents">
+					<ul>
+						<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/screen.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_screen); ?></span></li>
+						<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/power.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_power); ?></span></li>
+						<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/camera.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_camera); ?></span></li>
+						<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/weight.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_weight); ?></span></li>
+						<li><span class="feature-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/sim.png" alt=""></span><span class="feature-text"><?php echo esc_html($feature_sim); ?></span></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

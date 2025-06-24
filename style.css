@@ -19,8 +19,9 @@ Text Domain: yourfone
 
 /*Yourfone default css*/
 figure {
-    margin: 0;
+	margin: 0;
 }
+
 ul {
 	list-style: none;
 	margin: 0;
@@ -84,6 +85,7 @@ body.single-product div#main {
 	background: unset;
 	padding: 0;
 }
+
 .section-title {
 	font-family: var(--poppins);
 	font-weight: 600;
@@ -138,7 +140,7 @@ nav#site-navigation {
 	flex-wrap: wrap;
 	height: 100%;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: center;
 }
 
 #site-navigation ul#primary-menu {
@@ -454,7 +456,7 @@ ul.products li.product .loop-title-wrapper {
 }
 
 ul.products li.product .loop-title-wrapper h2.woocommerce-loop-product__title {
-/*	max-width: calc(100% - 65px);*/
+	/*	max-width: calc(100% - 65px);*/
 }
 
 span.attr-capacity {
@@ -674,13 +676,15 @@ footer#site-footer h2 {
 	line-height: 30px;
 	color: rgba(242, 90, 41, 1) !important;
 }
+
 .single-title-price.top-title {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
 }
+
 .single-title-price.top-title > .woocommerce-variation .woocommerce-variation-price {
-    margin-top: -50px;
+	margin-top: -50px;
 }
 
 .woocommerce .gallery-bg {
@@ -712,12 +716,12 @@ footer#site-footer h2 {
 }
 
 .single-title-price .title-area .woocommerce-variation-availability p.stock {
-    color: rgba(242, 90, 41, 1) !important;
-    font-family: var(--poppins);
-    font-weight: 400;
-    font-size: 13.96px !important;
-    line-height: 100%;
-    vertical-align: middle;
+	color: rgba(242, 90, 41, 1) !important;
+	font-family: var(--poppins);
+	font-weight: 400;
+	font-size: 13.96px !important;
+	line-height: 100%;
+	vertical-align: middle;
 }
 
 .single-title-price .title-area .woocommerce-variation-availability {
@@ -781,7 +785,11 @@ footer#site-footer {
 .product-features-section .product-features {
 	display: flex;
 	margin: 0 auto;
-	margin-top: 30px;
+	margin-top: 40px;
+}
+
+.features-heading h2.product-feature-title {
+	margin-bottom: 20px;
 }
 
 .product-features-section .feature-image-area {
@@ -875,18 +883,18 @@ footer#site-footer {
 .product-details-section span.details-title {
 	font-family: var(--opensans);
 	font-weight: 700;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 37px;
 	vertical-align: middle;
 	color: #4A4A4A;
-	width: 120px;
+	width: 130px;
 	display: inline-block;
 }
 
 .product-details-section span.details-text {
 	font-family: var(--opensans);
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 37px;
 	vertical-align: middle;
 	color: #333333;
@@ -907,19 +915,21 @@ footer#site-footer {
 }
 
 .yourfone_product_slider li.product {
-    margin: 20px 0 !important;
-    min-height: 180px;
+	margin: 20px 0 !important;
+	min-height: 180px;
 	display: flex !important;
-    flex-direction: column;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: start;
-    justify-content: flex-start;
-    gap: 5px;
+	flex-direction: column;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: start;
+	justify-content: flex-start;
+	gap: 5px;
 }
+
 .yourfone_product_slider li.product a.woocommerce-loop-product__link {
 	margin: auto 0;
 }
+
 .yourfone_product_slider .slick-prev:before,
 .yourfone_product_slider .slick-next:before {
 	font-size: 14px;
@@ -939,7 +949,7 @@ footer#site-footer {
 }
 
 .woocommerce div.product div.images img {
-/*	max-width: 276px;*/
+	/*	max-width: 276px;*/
 	max-width: 554px;
 	margin: 0 auto;
 }
@@ -995,13 +1005,17 @@ footer#site-footer {
 }
 
 .related-products-wrap h2 {
-    font-family: var(--poppins);
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #000;
-    margin-bottom: 20px;
+	font-family: var(--poppins);
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 100%;
+	letter-spacing: 0%;
+	color: #000;
+	margin-bottom: 20px;
+}
+
+.yourfone_related_product_slider ul.products li.product a.woocommerce-loop-product__link {
+	max-width: 60%;
 }
 
 .woo-variation-swatches .variable-items-wrapper .variable-item:not(.radio-variable-item).disabled .variable-item-contents:before,
@@ -1149,11 +1163,13 @@ body.woocommerce-cart .woocommerce .woocommerce-notices-wrapper {
 }
 
 .woocommerce-product-gallery .flaticon-back {
-	left: calc(50% - 200px);
+	/*	left: calc(50% - 200px);*/
+	left: 30px;
 }
 
 .woocommerce-product-gallery .flaticon-right-arrow {
-	right: calc(50% - 200px);
+	/*	right: calc(50% - 200px);*/
+	right: 30px;
 }
 
 .attribute-description {
@@ -1212,9 +1228,11 @@ li.variable-item.color-variable-item.color-variable-item-red.selected {
 	width: 12px;
 	height: 12px;
 }
+
 .woo-variation-swatches .variable-items-wrapper .variable-item:not(.radio-variable-item).color-variable-item .variable-item-span-color {
 	border: 1px solid #BFBFBF
 }
+
 .woocommerce-product-gallery .slick-dots li {
 	width: 12px;
 	height: 12px;
@@ -1273,6 +1291,7 @@ li.variable-item.color-variable-item.color-variable-item-red.selected {
 .shipping-info-before-cart-btn {
 	margin-top: 30px;
 	margin-bottom: 23px;
+	clear: both
 }
 
 .woocommerce div.product form.cart .button.single_add_to_cart_button {
@@ -1330,7 +1349,7 @@ body.woocommerce-cart .cart-collaterals {
 }
 
 body.woocommerce-cart form.woocommerce-cart-form {
-    width: 53%;
+	width: 53%;
 }
 
 body.woocommerce-checkout main#primary {
@@ -1447,8 +1466,8 @@ body.woocommerce-checkout .wp-block-woocommerce-checkout {
 }
 
 .wc-empty-cart-message {
-    display: block;
-    width: 100%;
+	display: block;
+	width: 100%;
 }
 
 .woocommerce-MyAccount-content .woocommerce-Addresses.addresses .woocommerce-Address {
@@ -1462,51 +1481,58 @@ body.woocommerce-checkout .wp-block-woocommerce-checkout {
 }
 
 .select2-container .select2-selection--single {
-    height: auto;
-    padding: 4px 0;
+	height: auto;
+	padding: 4px 0;
 }
+
 body.single-product .qib-button-wrapper {
-    display: none;
+	display: none;
 }
+
 .woocommerce span.onsale {
 	display: none
 }
+
 .yourfone_related_product_slider {
-    overflow: hidden;
-    position: relative;
-    padding: 12px 25px;
+	overflow: hidden;
+	position: relative;
+	padding: 12px 25px;
 	opacity: 0
 }
+
 .related-products-wrap .yourfone_related_product_slider ul.products {
-    transition: transform 0.3s ease;
+	transition: transform 0.3s ease;
 	display: flex;
 	column-gap: 10px;
 }
+
+.yourfone_related_product_slider li.product {
+	margin: 0 !important
+}
+
 .related-products-wrap .yourfone_related_product_slider ul.products li.product- {
-    flex: 0 0 calc(20% - 17px) !important;
-/*
-    box-sizing: border-box;
-	margin: 0;
-*/
+	flex: 0 0 calc(20% - 17px) !important;
 }
 
 .yourfone_related_product_slider li.product {
-  flex: 0 0 50%; /* default: 2 items */
-  box-sizing: border-box;
-  padding: 10px;
+	flex: 0 0 calc(50% - 14.5px);
+	box-sizing: border-box;
+	padding: 10px;
 	margin: 0;
 }
 
 @media (min-width: 768px) {
-  .yourfone_related_product_slider li.product {
-    flex: 0 0 33.3333%; /* 3 items on tablets */
-  }
+	.yourfone_related_product_slider li.product {
+		flex: 0 0 calc(33.3333% - 11.5px);
+		/* 3 items on tablets */
+	}
 }
 
 @media (min-width: 1024px) {
-  .yourfone_related_product_slider li.product {
-    flex: 0 0 20%; /* 5 items on desktop */
-  }
+	.yourfone_related_product_slider li.product {
+		flex: 0 0 calc(20% - 11.5px);
+		/* 5 items on desktop */
+	}
 }
 
 .yourfone_related_product_slider button.prev-btn, .yourfone_related_product_slider button.next-btn {
@@ -1518,39 +1544,132 @@ body.single-product .qib-button-wrapper {
     border-radius: 50%;
     font-size: 14px;
     font-weight: bold;
-    line-height: 17px;
+    line-height: 0px;
+    background: #fff;
+    padding: 0;
 }
 
 .yourfone_related_product_slider button.next-btn {
-    right: 0;
-    z-index: 9;
-    opacity: 1;
-    top: 50%;
+	right: 0;
+	z-index: 9;
+	opacity: 1;
+	top: 50%;
 }
 
 .yourfone_related_product_slider button.prev-btn {
-    left: 0;
-    top: calc(50% - 12px);
+	left: 0;
+	top: calc(50% - 12px);
 }
+
 .woocommerce div.product .slick-slide {
-    position: relative;
+	position: relative;
 }
+
 .woocommerce div.product .slick-slide::before {
-    content: '';
-    position: absolute;
-    width: 112px;
-    height: 112px;
-    z-index: 1;
-    background-image: url(http://yourfone.test/wp-content/uploads/2025/06/badge-1-e1750011237661.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    bottom: 20px;
-    left: calc(50% - 56px);
-    margin-left: -150px;
+	content: '';
+	position: absolute;
+	width: 112px;
+	height: 112px;
+	z-index: 1;
+	/*    background-image: url(http://yourfone.test/wp-content/uploads/2025/06/badge-1-e1750011237661.png);*/
+	background-size: cover;
+	background-repeat: no-repeat;
+	bottom: 20px;
+	left: calc(50% - 56px);
+	margin-left: -150px;
 }
+
 .product-image-and-summery .product-image-col {
 	padding-left: 0
 }
+
 .woocommerce-notices-wrapper .woocommerce-message {
-    margin-bottom: 0;
+	margin-bottom: 0;
+}
+
+.woocommerce div.product div.images img {
+	max-width: 100%;
+	margin: 0 auto;
+	max-height: 500px;
+	object-fit: contain;
+}
+
+.woocommerce ul#shipping_method li input {
+	display: inline-block;
+	width: auto;
+	margin-top: 6px;
+}
+
+.wp-block-woocommerce-checkout-order-summary-block.checkout-order-summary-block-fill-wrapper {
+	display: none;
+}
+
+.service-highlights-wrap {
+	padding: 70px 0 62px 0;
+	margin-bottom: 80px;
+	background-color: #F0F0F0;
+}
+
+.service-highlight-item .service-highlight-icon {
+	width: 36px;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+
+.service-highlight-title h2 {
+	font-size: 16px;
+	text-align: center;
+	font-weight: 600;
+	line-height: 25px;
+	margin: 0;
+}
+
+.service-highlight-text p {
+	font-size: 16px;
+	text-align: center;
+	margin: 0;
+}
+
+.service-highlight-text {
+	margin-top: 2px;
+}
+
+.woocommerce-order-received h2 {
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 30px;
+}
+
+.woocommerce-order-received p {
+	font-size: 16px;
+}
+
+.box-info-after-cart-btn h2 {
+	font-size: 14px;
+	line-height: 22px;
+	margin-bottom: 5px;
+}
+
+.box-info-after-cart-btn p {
+	font-size: 14px;
+	margin: 0;
+}
+
+.box-info-after-cart-btn p span {
+	width: 14px;
+	display: inline-block;
+	margin-right: 13px;
+}
+
+.box-info-after-cart-btn {
+	padding: 20px 0 22px 0;
+	border: 1px solid #D8D8D8;
+	border-left: 0;
+	border-right: 0;
+	margin-top: 30px;
+}
+
+li.variable-item.button-variable-item-brand-new.disabled {
+    display: none !important;
 }

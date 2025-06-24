@@ -77,7 +77,7 @@ if ( post_password_required() ) {
 			</div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="product-content-area">
 		<?php
 		/**
 		 * Hook: woocommerce_after_single_product_summary.

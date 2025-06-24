@@ -118,6 +118,11 @@ add_action( 'after_setup_theme', 'yourfone_content_width', 0 );
  */
 require get_template_directory() . '/inc/template-tags.php';
 
+/**7
+ * Theme options for this theme.
+ */
+require get_template_directory() . '/inc/theme-options.php';
+
 /**
  * Register widget area.
  *
@@ -301,3 +306,10 @@ add_filter( 'wp_nav_menu_objects', 'yourfone_add_arrow_to_menu_items', 10, 2 );
 */
 require_once 'woocommerce-features.php';
 
+add_filter( 'jpeg_quality', function( $arg ) {
+    return 100;
+});
+
+add_filter( 'wp_editor_set_quality', function( $quality, $mime_type ) {
+    return 100; // Applies to all mime types (JPEG, PNG, WebP)
+}, 10, 2 );

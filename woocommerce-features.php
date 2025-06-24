@@ -2,10 +2,10 @@
 
 /*Init hooks*/
 function yourfone_init(){
-	//remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
-	//remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
-	//add_action('woocommerce_before_main_content', 'yourfone_output_content_wrapper', 10);
-	//add_action('woocommerce_after_main_content', 'yourfone_output_content_wrapper_end', 10);
+	remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+	remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+	add_action('woocommerce_before_main_content', 'yourfone_output_content_wrapper', 10);
+	add_action('woocommerce_after_main_content', 'yourfone_output_content_wrapper_end', 10);
 	remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
 	add_action('woocommerce_shop_loop_item_title', 'yourfone_add_color_attribute_before_title', 5);
 	add_action('woocommerce_shop_loop_item_title', 'yourfone_add_condition_attribute_after_title', 15);
@@ -22,9 +22,10 @@ function yourfone_init(){
 	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
 	remove_action('woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15);
 	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
-	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_features', 25);
-	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_details', 30);
+	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_features', 30);
+	add_action('woocommerce_after_single_product_summary', 'yourfone_output_product_details', 35);
 	add_action('woocommerce_after_single_product_summary', 'yourfone_output_related_products', 20);
+	add_action('woocommerce_after_single_product_summary', 'yourfone_output_service_highlights', 25);
 	remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
 	add_action('woocommerce_after_shop_loop_item_title', 'yourfone_template_loop_price', 10);
 	remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10);
@@ -161,12 +162,16 @@ function yourfone_product_slider_shortcode($atts) {
 
 /* Archive wrapper start */
 function yourfone_output_content_wrapper(){
-	echo '<div id="main"><div class="container">';
+	if( is_shop() ){
+		echo '<div id="main"><div class="container">';
+	}
 }
 
 /* Archive wrapper end */
 function yourfone_output_content_wrapper_end(){
-	echo '</div></div>';
+	if( is_shop() ){
+		echo '</div></div>';
+	}
 }
 
 /* Customize the product title in the product loop */
@@ -551,18 +556,26 @@ function yourfone_output_related_products(){
 	require_once 'template-parts/related-products.php';
 }
 
+//Display service highlights on the single product page
+function yourfone_output_service_highlights(){
+	require_once 'template-parts/service-highlights.php';
+}
+
 //Single product background
 function yourfone_woo_product_image_bg(){
 ?>
 <style>
 	.product-image-col .product-image-bg {
-		background-image: url(http://yourfone.test/wp-content/themes/yourfone/assets/images/product-image-bg.png);
+		background-image: url(<?php echo esc_url(get_option('product_background_image')); ?>);
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
 		position: sticky;
 		max-width: 100%;
 		top: 0;
+	}
+	.woocommerce div.product .slick-slide::before {
+		background-image: url(<?php echo esc_url(get_option('product_badge_url')); ?>);
 	}
 </style>
 <?php
@@ -782,6 +795,11 @@ function yourfone_display_shipping_info_before_addtocart() {
 function yourfone_display_shipping_info_after_addtocart() {
 	echo '<div class="shipping-info-after-cart-btn">';
 	echo '<p>Pickup available at <b>Nerang Mall, Australia.</b><br>5A/7-27 Cayuga St, Nerang. (Next to Nerang AU Post)<br>Usually ready in 2 hours (during opening hours)</p>';
+	echo '</div>';
+	
+	echo '<div class="box-info-after-cart-btn">';
+	echo '<h2>Included in the box</h2>';
+	echo '<p><span><img src="'.get_template_directory_uri().'/assets/images/pin.png" /></span>USB-A charging cable and SIM tray ejector tool.</p>';
 	echo '</div>';
 }
 

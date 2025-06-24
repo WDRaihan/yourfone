@@ -238,7 +238,6 @@
 
 	.related-products-wrap {
 		margin: 15px 0 20px 0;
-		border-bottom: 1px solid #ddd;
 	}
 
 	.product-features-section .product-features {
@@ -257,12 +256,96 @@
 	.product-details-section {
 		margin-top: 30px;
 	}
+
+	.woocommerce-cart-form__cart-item.cart_item .product-name {
+		width: 60%;
+		flex-direction: column;
+	}
+
+	.woocommerce-cart-form__cart-item.cart_item .product-subtotal {
+		width: calc(40% - 38px);
+	}
+
+	.woocommerce-cart-form__cart-item.cart_item .product-thumbnail {
+		width: 44px;
+		margin-right: 0px;
+		margin-bottom: 5px;
+	}
+
+	.service-highlight-item .service-highlight-icon {
+		text-align: left;
+		margin: 0;
+		margin-right: 30px;
+	}
+
+	.service-highlight-title h2 {
+		text-align: left;
+		font-size: 13.96px;
+	}
+
+	.service-highlight-text p {
+		text-align: left;
+		font-size: 13.96px;
+	}
+
+	.service-highlight-item {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		align-items: flex-start;
+		margin-bottom: 16px;
+	}
+
+	.service-highlight-title-text {
+		width: calc(100% - 70px);
+	}
+
+	.service-highlights-wrap {
+		padding: 45px 0 20px 0;
+		margin-bottom: 45px;
+	}
+
+	.product-details-section span.details-title {
+		font-size: 14px;
+		width: 120px;
+	}
+
+	.product-details-section span.details-text {
+		font-size: 14px;
+	}
+
+	.feature-contents ul li span.feature-text {
+		font-size: 14px;
+	}
+
+	.yourfone_related_product_slider ul.products li.product .woocommerce-loop-product__title {
+		font-size: 14px;
+		line-height: 22px;
+	}
+
+	.product-features-section {
+		max-width: 100%;
+	}
+
+	.product-features-section .feature-image {
+		width: 50%;
+		margin-left: 17%;
+	}
+	.product-details-section {
+		max-width: 100%;
+		border-top: 1px solid #ddd;
+		padding-top: 30px;
+	}
+	.woocommerce div.product div.images img {
+		max-height: 375px;
+	}
 }
 
 @media (max-width: 1280px) {
 	.woocommerce div.product .slick-slide::before {
-		width: 64px;
-		height: 64px;
+		width: 90px;
+		height: 90px;
 		left: calc(50% - 32px);
 		margin-left: -160px;
 	}

@@ -258,16 +258,19 @@ add_action( 'widgets_init', 'yourfone_widgets_init' );
  */
 function yourfone_scripts() {
 	wp_enqueue_style( 'yourfone-bootstrap', '//cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css', array(), _S_VERSION );
-	wp_enqueue_style( 'yourfone-slick', get_template_directory_uri() . '/css/slick.css', array(), _S_VERSION );
-	wp_enqueue_style( 'yourfone-slick-theme', get_template_directory_uri() . '/css/slick-theme.css', array(), _S_VERSION );
+	
+	wp_enqueue_style( 'yourfone-owl-carousel', get_template_directory_uri() . '/css/owl.carousel.css', array(), _S_VERSION );
+	wp_enqueue_style( 'yourfone-owl-theme', get_template_directory_uri() . '/css/owl.theme.css', array(), _S_VERSION );
 	wp_enqueue_style( 'yourfone-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_enqueue_style( 'yourfone-responsive', get_template_directory_uri() . '/css/responsive.css', array(), _S_VERSION );
 	wp_style_add_data( 'yourfone-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'yourfone-navigation', '//cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array('jquery'), _S_VERSION, false );
 	wp_enqueue_script( 'wc-cart-fragments' );
-	wp_enqueue_script( 'yourfone-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'yourfone-slick-slider', get_template_directory_uri() . '/js/slick.js', array('jquery'), _S_VERSION, false );
+	wp_enqueue_script( 'yourfone-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );	
+	wp_enqueue_script( 'yourfone-owl-carousel', get_template_directory_uri() . '/js/owl.carousel.js', array('jquery'), _S_VERSION, false );
+	
+	
 	wp_enqueue_script( 'yourfone-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), _S_VERSION, true );
 	wp_localize_script( 'yourfone-scripts', 'yourfone_object',
 		array( 

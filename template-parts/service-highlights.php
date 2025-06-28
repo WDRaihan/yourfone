@@ -38,7 +38,7 @@
 									<h2>WARRANTY AND RETURNS</h2>
 								</div>
 								<div class="service-highlight-text">
-									<p>4-month Yourfone warranty<br>and 3-day free returns.</p>
+									<p>6-month Yourfone warranty<br>and 3-day free returns.</p>
 								</div>
 							</div>
 						</div>

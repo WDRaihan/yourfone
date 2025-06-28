@@ -9,48 +9,20 @@ jQuery(document).ready(function(){
 			jQuery(this).parents('td.value.woo-variation-items-wrapper').find('.attribute-description').html(description).show();
 		}
 	});
+	
+	//Home page product slider
+	jQuery(".yourfone_product_slider ul.products").owlCarousel({
+		items: 8,
+		navigation:true,
+		slideSpeed: 300,
+		paginationSpeed: 300,
+		itemsDesktop: [1199,8],
+		itemsDesktopSmall: [979,6],
+		itemsTablet: [768,5],
+		itemsMobile:[479,4],
+		pagination: false,
+		navigationText: ["←","→"]
 
-	//Init slick slider
-	jQuery('.yourfone_product_slider').each(function(){
-		var target = jQuery(this).find('ul.products');
-		var columns = jQuery(this).attr('slider-columns');
-		var wrapper = jQuery(this);
-		
-		target.on('init',function(event, slick){
-			wrapper.show();
-		});
-		target.slick({
-			slidesToShow: columns,
-			arrows: true,
-			rows: 1,
-			responsive: [{
-				breakpoint: 1199,
-				settings: {
-					slidesToShow: 6,
-				}
-			  }, {
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 5,
-				}
-			  }, {
-				breakpoint: 767,
-				settings: {
-					slidesToShow: 4,
-				}
-			  }, {
-				breakpoint: 500,
-				settings: {
-					slidesToShow: 3,
-				}
-			  }, {
-				breakpoint: 390,
-				settings: {
-					slidesToShow: 2,
-				}
-		  	}],
-		});
-		
 	});
 	
 	/*Mobile menu*/

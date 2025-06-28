@@ -9,8 +9,8 @@ function yourfone_init(){
 	remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
 	add_action('woocommerce_shop_loop_item_title', 'yourfone_add_color_attribute_before_title', 5);
 	add_action('woocommerce_shop_loop_item_title', 'yourfone_add_condition_attribute_after_title', 15);
-	remove_action('woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10);
-	remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5);
+	//remove_action('woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10);
+	//remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5);
 	remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
 	remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
 	remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
@@ -145,11 +145,26 @@ function yourfone_product_slider_shortcode($atts) {
 	));
 	if ( $query->have_posts() ) {
 		ob_start();
-		echo '<div class="woocommerce yourfone_product_slider" style="display:none" slider-columns="'.$attributes['columns'].'">';
-		echo '<ul class="products">';
+		echo '<div class="woocommerce yourfone_product_slider" slider-columns="'.$attributes['columns'].'">';
+		echo '<ul class="products owl-carousel owl-theme">';
 		while ( $query->have_posts() ) {
 			$query->the_post();
-			wc_get_template_part( 'content', 'product' );
+			//wc_get_template_part( 'content', 'product' );
+			global $product;
+			// Check if the product is a valid WooCommerce product and ensure its visibility before proceeding.
+			if ( is_a( $product, WC_Product::class ) && $product->is_visible() ) {
+				do_action( 'woocommerce_before_shop_loop_item' );
+				?>
+				<li <?php wc_product_class( '', $product ); ?>>
+					<?php
+					do_action( 'woocommerce_before_shop_loop_item_title' );
+					do_action( 'woocommerce_shop_loop_item_title' );
+					do_action( 'woocommerce_after_shop_loop_item_title' );
+					?>
+				</li>
+				<?php
+				do_action( 'woocommerce_after_shop_loop_item' );
+			}
 		}
 		echo '</ul>';
 		wp_reset_postdata();
@@ -183,9 +198,9 @@ function woocommerce_template_loop_product_title() {
 		
 		$product_permalink = !empty(get_post_meta( get_the_ID(), 'variation_url', true )) ? get_post_meta( get_the_ID(), 'variation_url', true ) : get_the_permalink();
 		
-		echo '<a href="' . esc_url( $product_permalink ) . '" class="product-default-loop-title woocommerce-LoopProduct-link woocommerce-loop-product__link">';
+		echo '<div class="product-default-loop-title">';
 		echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>';
-		echo '</a>';
+		echo '</div>';
 		return;
 	}
 	
@@ -194,9 +209,9 @@ function woocommerce_template_loop_product_title() {
 	parse_str($str, $attributes);
 	
 	$html = '<div class="loop-title-wrapper">';
-	$html .= '<a href="' . esc_url( get_the_permalink() ) . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">';
+	$html .= '<div class="woocommerce-loop-product_title">';
 	$html .= '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>';
-	$html .= '</a>';
+	$html .= '</div>';
 	
 	if( array_key_exists('attribute_pa_capacity', $attributes) ){
 		$term = get_term_by('slug', $attributes['attribute_pa_capacity'], 'pa_capacity');
@@ -259,7 +274,7 @@ function yourfone_add_condition_attribute_after_title(){
 	
 	$html .= '</div>';
 	$html .= '<div class="custom-add-to-cart-btn">';
-	$html .= '<a href="'.esc_url( get_the_permalink() ).'"><img src="'.get_template_directory_uri().'/assets/images/eye.png"></a>';
+	//$html .= '<a href="'.esc_url( get_the_permalink() ).'"><img src="'.get_template_directory_uri().'/assets/images/eye.png"></a>';
 	$html .= '</div>';
 	$html .= '</div>';
 	echo $html;
@@ -643,7 +658,8 @@ function yourfone_echo_variation_info() {
 
 		  function updateSlider() {
 			const visibleSlides = getVisibleSlidesCount();
-			const slideWidth = slides[0].offsetWidth;
+			var slideWidth = slides[0].offsetWidth;
+			var slideWidth = slideWidth + 10;
 			const maxIndex = Math.max(0, slides.length - visibleSlides);
 			currentSlide = Math.min(currentSlide, maxIndex);
 

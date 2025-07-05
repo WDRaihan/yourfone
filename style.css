@@ -118,7 +118,7 @@ body.single-product div#main {
 
 /*Header style*/
 #masthead {
-	height: 112px;
+	height: 84px;
 	background-color: #fff;
 	box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 5%);
 }
@@ -1767,4 +1767,54 @@ li.variable-item.button-variable-item-brand-new.disabled {
 .yourfone_product_slider ul.products.owl-carousel.owl-theme .owl-controls .owl-buttons .owl-next {
 	float: right;
 	margin-right: -30px;
+}
+
+.page-template-category-pages main#primary {
+    padding-top: 0;
+}
+
+.category-page-banner {
+    height: 381px;
+    background-attachment: scroll;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+	margin-bottom: 60px;
+}
+
+.category-page-banner .banner-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.category-page-banner .banner-icon {
+    width: 58px;
+    margin: 0 auto;
+}
+
+.category-page-banner .banner-icon img {
+    max-width: 100%;
+}
+
+.category-page-banner .banner-title h1 {
+    font-size: 36px;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.category-page-content h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 32px 0;
+    line-height: 23px;
+}
+
+.category-page-content ul.products {
+    margin-bottom: 0 !important;
 }

@@ -602,44 +602,7 @@ function yourfone_echo_variation_info() {
 	if ( ! $product->is_type( 'variable' ) ) return;
 	?>
   	<script>
-		
-		/*let currentSlide = 0;
-		let totalSlides = 0;
-		let visibleSlides = 1;
 
-		function initSlider() {
-		  const track = document.querySelector('.yourfone_related_product_slider ul.products');
-		  const slides = document.querySelectorAll('.yourfone_related_product_slider li.product');
-		  totalSlides = slides.length;
-
-		  const prevBtn = document.querySelector('.prev-btn');
-		  const nextBtn = document.querySelector('.next-btn');
-
-		  const maxIndex = Math.max(0, totalSlides - visibleSlides);
-
-		  function updateSlider() {
-			const shift = (100 / visibleSlides) * currentSlide;
-			track.style.transform = `translateX(-${shift}%)`;
-		  }
-
-		  prevBtn.onclick = () => {
-			if (currentSlide > 0) {
-			  currentSlide--;
-			  updateSlider();
-			}
-		  };
-
-		  nextBtn.onclick = () => {
-			if (currentSlide < maxIndex) {
-			  currentSlide++;
-			  updateSlider();
-			}
-		  };
-
-		  currentSlide = 0;
-		  updateSlider();
-		}*/
-		
 		let currentSlide = 0;
 
 		function getVisibleSlidesCount() {

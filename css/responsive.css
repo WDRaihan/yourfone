@@ -332,25 +332,55 @@
 		width: 50%;
 		margin-left: 17%;
 	}
+
 	.product-details-section {
 		max-width: 100%;
 		border-top: 1px solid #ddd;
 		padding-top: 30px;
 	}
+
 	.woocommerce div.product div.images img {
 		max-height: 375px;
 	}
-	.woocommerce ul.products li.product img.attachment-woocommerce_thumbnail{
+
+	.woocommerce ul.products li.product img.attachment-woocommerce_thumbnail {
 		width: 65%;
 	}
+
 	.yourfone_product_slider .owl-carousel .owl-item {
 		padding: 0 4px;
 	}
+
 	.yourfone_product_slider ul.products.owl-carousel.owl-theme {
 		padding: 0 8px;
 	}
+
 	.yourfone_related_product_slider ul.products li.product .woocommerce-loop-product_title {
 		max-width: 50%;
+	}
+
+	.category-page-banner {
+		height: 188px;
+		margin-bottom: 40px;
+	}
+
+	.category-page-banner .banner-title h1 {
+		font-size: 24px;
+		line-height: 18px;
+	}
+
+	.category-page-banner .banner-icon {
+		width: 33px;
+	}
+	
+	.category-page-content h2 {
+		font-size: 22px;
+		margin: 15px 0 20px 0;
+		line-height: 20px;
+	}
+	
+	.category-page-content ul.products li.product {
+		margin: 0 0 15px;
 	}
 }
 
@@ -361,6 +391,7 @@
 		left: calc(50% - 32px);
 		margin-left: -160px;
 	}
+
 	.yourfone_product_slider ul.products.owl-carousel.owl-theme .owl-controls {
 		display: none !important;
 	}

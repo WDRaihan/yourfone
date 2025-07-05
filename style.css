@@ -1025,7 +1025,8 @@ footer#site-footer {
 	margin-bottom: 20px;
 }
 
-.yourfone_related_product_slider ul.products li.product .woocommerce-loop-product_title {
+.yourfone_related_product_slider ul.products li.product .woocommerce-loop-product_title,
+ul.products li.product.product-type-variation .woocommerce-loop-product_title {
 	max-width: 60%;
 }
 
@@ -1562,6 +1563,7 @@ body.single-product .qib-button-wrapper {
 	top: calc(50% - 20px);
 	z-index: 9;
 	opacity: 1;
+	color: #444;
 }
 
 .yourfone_related_product_slider button.next-btn {
@@ -1817,4 +1819,11 @@ li.variable-item.button-variable-item-brand-new.disabled {
 
 .category-page-content ul.products {
     margin-bottom: 0 !important;
+}
+
+.yourfone_related_product_slider button.prev-btn.disabled,
+.yourfone_related_product_slider button.next-btn.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: default;
 }

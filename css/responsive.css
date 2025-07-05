@@ -355,7 +355,8 @@
 		padding: 0 8px;
 	}
 
-	.yourfone_related_product_slider ul.products li.product .woocommerce-loop-product_title {
+	.yourfone_related_product_slider ul.products li.product .woocommerce-loop-product_title,
+	ul.products li.product.product-type-variation .woocommerce-loop-product_title {
 		max-width: 50%;
 	}
 
@@ -380,7 +381,7 @@
 	}
 	
 	.category-page-content ul.products li.product {
-		margin: 0 0 15px;
+		margin: 0 0 15px !important;
 	}
 }
 

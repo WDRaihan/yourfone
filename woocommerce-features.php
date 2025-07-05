@@ -621,13 +621,28 @@ function yourfone_echo_variation_info() {
 
 		  function updateSlider() {
 			const visibleSlides = getVisibleSlidesCount();
-			var slideWidth = slides[0].offsetWidth;
-			var slideWidth = slideWidth + 10;
+			const slideWidth = slides[0].offsetWidth + 10; // include gap
 			const maxIndex = Math.max(0, slides.length - visibleSlides);
+
 			currentSlide = Math.min(currentSlide, maxIndex);
+			currentSlide = Math.max(0, currentSlide);
 
 			const shift = currentSlide * slideWidth;
 			track.style.transform = `translateX(-${shift}px)`;
+
+			// Handle prev button visibility
+			if (currentSlide === 0) {
+			  prevBtn.classList.add('disabled');
+			} else {
+			  prevBtn.classList.remove('disabled');
+			}
+
+			// Handle next button visibility
+			if (currentSlide >= maxIndex) {
+			  nextBtn.classList.add('disabled');
+			} else {
+			  nextBtn.classList.remove('disabled');
+			}
 		  }
 
 		  prevBtn.onclick = () => {
@@ -646,9 +661,7 @@ function yourfone_echo_variation_info() {
 			}
 		  };
 
-		  window.addEventListener('resize', () => {
-			updateSlider();
-		  });
+		  window.addEventListener('resize', updateSlider);
 
 		  updateSlider();
 		}
